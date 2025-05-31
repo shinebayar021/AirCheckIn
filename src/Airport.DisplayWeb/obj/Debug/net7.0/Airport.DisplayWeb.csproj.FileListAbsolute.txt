@@ -7,6 +7,10 @@ C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\bin\Debug\net7
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\bin\Debug\net7.0\Airport.DisplayWeb.runtimeconfig.json
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\bin\Debug\net7.0\Airport.DisplayWeb.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\bin\Debug\net7.0\Airport.DisplayWeb.pdb
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\bin\Debug\net7.0\Microsoft.AspNetCore.Http.Connections.Client.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\bin\Debug\net7.0\Microsoft.AspNetCore.SignalR.Client.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\bin\Debug\net7.0\Microsoft.AspNetCore.SignalR.Client.Core.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\Airport.DisplayWeb.csproj.AssemblyReference.cache
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\Airport.DisplayWeb.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\Airport.DisplayWeb.AssemblyInfoInputs.cache
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\Airport.DisplayWeb.AssemblyInfo.cs
@@ -15,6 +19,7 @@ C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\Airport.DisplayWeb.RazorAssemblyInfo.cache
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\Airport.DisplayWeb.RazorAssemblyInfo.cs
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\Airport.DisplayWeb.sourcelink.json
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\scopedcss\Pages\FlightDisplay.razor.rz.scp.css
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\scopedcss\bundle\Airport.DisplayWeb.styles.css
@@ -28,6 +33,8 @@ C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.Airport.DisplayWeb.props
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.Airport.DisplayWeb.props
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\staticwebassets.pack.json
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\staticwebassets.upToDateCheck.txt
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\Airport..CECC6934.Up2Date
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\Airport.DisplayWeb.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\refint\Airport.DisplayWeb.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\Airport.DisplayWeb.pdb

@@ -8,10 +8,97 @@
     ".NETCoreApp,Version=v9.0": {
       "Airport.KioskClient/1.0.0": {
         "dependencies": {
-          "Airport.Data": "1.0.0"
+          "Airport.Data": "1.0.0",
+          "Microsoft.AspNetCore.SignalR.Client": "9.0.5"
         },
         "runtime": {
           "Airport.KioskClient.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Connections.Abstractions/9.0.5": {
+        "dependencies": {
+          "Microsoft.Extensions.Features": "9.0.5"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Connections.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.525.22904"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Http.Connections.Client/9.0.5": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Connections.Common": "9.0.5",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.5",
+          "Microsoft.Extensions.Options": "9.0.5",
+          "System.Net.ServerSentEvents": "9.0.5"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Http.Connections.Client.dll": {
+            "assemblyVersion": "9.0.5.0",
+            "fileVersion": "9.0.525.22904"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Http.Connections.Common/9.0.5": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Connections.Abstractions": "9.0.5"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.Http.Connections.Common.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.525.22904"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.SignalR.Client/9.0.5": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Connections.Client": "9.0.5",
+          "Microsoft.AspNetCore.SignalR.Client.Core": "9.0.5"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.SignalR.Client.dll": {
+            "assemblyVersion": "9.0.5.0",
+            "fileVersion": "9.0.525.22904"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.SignalR.Client.Core/9.0.5": {
+        "dependencies": {
+          "Microsoft.AspNetCore.SignalR.Common": "9.0.5",
+          "Microsoft.AspNetCore.SignalR.Protocols.Json": "9.0.5",
+          "Microsoft.Extensions.DependencyInjection": "9.0.5",
+          "Microsoft.Extensions.Logging": "9.0.5",
+          "System.Threading.Channels": "9.0.5"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.SignalR.Client.Core.dll": {
+            "assemblyVersion": "9.0.5.0",
+            "fileVersion": "9.0.525.22904"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.SignalR.Common/9.0.5": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Connections.Abstractions": "9.0.5",
+          "Microsoft.Extensions.Options": "9.0.5"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.SignalR.Common.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.525.22904"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.SignalR.Protocols.Json/9.0.5": {
+        "dependencies": {
+          "Microsoft.AspNetCore.SignalR.Common": "9.0.5"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.525.22904"
+          }
         }
       },
       "Microsoft.Data.Sqlite.Core/9.0.5": {
@@ -153,6 +240,14 @@
           "lib/net9.0/Microsoft.Extensions.DependencyModel.dll": {
             "assemblyVersion": "9.0.0.5",
             "fileVersion": "9.0.525.21509"
+          }
+        }
+      },
+      "Microsoft.Extensions.Features/9.0.5": {
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Features.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.525.22904"
           }
         }
       },
@@ -344,7 +439,16 @@
         }
       },
       "System.Memory/4.5.3": {},
+      "System.Net.ServerSentEvents/9.0.5": {
+        "runtime": {
+          "lib/net9.0/System.Net.ServerSentEvents.dll": {
+            "assemblyVersion": "9.0.0.5",
+            "fileVersion": "9.0.525.21509"
+          }
+        }
+      },
       "System.Text.Json/9.0.5": {},
+      "System.Threading.Channels/9.0.5": {},
       "Airport.Data/1.0.0": {
         "dependencies": {
           "Airport.Domain": "1.0.0",
@@ -373,6 +477,55 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Microsoft.AspNetCore.Connections.Abstractions/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vfw2KppypT6LxRy2dAlyqUtk3QIawNoQLrmg7agwzLUuSeZEk9HCKCGX/lA84xg7LCs0RaA70fKzP9NJ8IOIRQ==",
+      "path": "microsoft.aspnetcore.connections.abstractions/9.0.5",
+      "hashPath": "microsoft.aspnetcore.connections.abstractions.9.0.5.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Http.Connections.Client/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ic2DkCofJKuBF030/H/q7GAV9EhOSWGlWyy/o61eWx2W7CLdVTpGbu20NvFqDZg46QfhINaE7CpyfC4SMiIg5A==",
+      "path": "microsoft.aspnetcore.http.connections.client/9.0.5",
+      "hashPath": "microsoft.aspnetcore.http.connections.client.9.0.5.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Http.Connections.Common/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7mglXbmkY3ceffqt8BaOce5o/cUXwEsBzJiukD8+wcAwMBeXE/9+x3XudobkByDPlcBSsITN79IY+bdquf2N8w==",
+      "path": "microsoft.aspnetcore.http.connections.common/9.0.5",
+      "hashPath": "microsoft.aspnetcore.http.connections.common.9.0.5.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.SignalR.Client/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Vp2zLEXThXTIdPXOJ2ndTBHGanAVo3kxHE73YHXz+tk/ScgykRa3vchWqMjf0108J1c6Ili02eAlauyhYz4Img==",
+      "path": "microsoft.aspnetcore.signalr.client/9.0.5",
+      "hashPath": "microsoft.aspnetcore.signalr.client.9.0.5.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.SignalR.Client.Core/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wIYgM1VZYbB7wGEye53HeDUQf8NS3nXtBWrFnhYr0wThZQ1ygId7LZ68GKhcDWy3fYX+xiizBlfimXZw4ZfzBA==",
+      "path": "microsoft.aspnetcore.signalr.client.core/9.0.5",
+      "hashPath": "microsoft.aspnetcore.signalr.client.core.9.0.5.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.SignalR.Common/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-R+nJcJlDwUTeG9+bLYFyleqXhF4LI4pyBXEVnOJUPzy6H8VfseQhlL/izW/PktxaQsmJdqOAnthv0fSLu/Nm3w==",
+      "path": "microsoft.aspnetcore.signalr.common/9.0.5",
+      "hashPath": "microsoft.aspnetcore.signalr.common.9.0.5.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.SignalR.Protocols.Json/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0GIfpeEoQDazw0xay1+45/MTG/H/vbRVvoVGQuxqG7s7AE1t0zhb7edSz7rPyKdBmju/3vaIqcjGkzLu0HDfkg==",
+      "path": "microsoft.aspnetcore.signalr.protocols.json/9.0.5",
+      "hashPath": "microsoft.aspnetcore.signalr.protocols.json.9.0.5.nupkg.sha512"
     },
     "Microsoft.Data.Sqlite.Core/9.0.5": {
       "type": "package",
@@ -465,6 +618,13 @@
       "path": "microsoft.extensions.dependencymodel/9.0.5",
       "hashPath": "microsoft.extensions.dependencymodel.9.0.5.nupkg.sha512"
     },
+    "Microsoft.Extensions.Features/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TCgCkMsHczJW7o9i9/J0zKgbrEzj/GWgJ7tG9ad32kPgSb9h8zouQcio5engv5luG/lEfuZ+tlSYxMoy25IWVQ==",
+      "path": "microsoft.extensions.features/9.0.5",
+      "hashPath": "microsoft.extensions.features.9.0.5.nupkg.sha512"
+    },
     "Microsoft.Extensions.Logging/9.0.5": {
       "type": "package",
       "serviceable": true,
@@ -528,12 +688,26 @@
       "path": "system.memory/4.5.3",
       "hashPath": "system.memory.4.5.3.nupkg.sha512"
     },
+    "System.Net.ServerSentEvents/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6VCpIDGQnHvSGOCtdn4LRvCSyWqdtpuiFVTfyaTS0QIzsakv48CQJQL87D4wsbLJG8DvwucXT6E0ZKlXv/Qd8Q==",
+      "path": "system.net.serversentevents/9.0.5",
+      "hashPath": "system.net.serversentevents.9.0.5.nupkg.sha512"
+    },
     "System.Text.Json/9.0.5": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-rnP61ZfloTgPQPe7ecr36loNiGX3g1PocxlKHdY/FUpDSsExKkTxpMAlB4X35wNEPr1X7mkYZuQvW3Lhxmu7KA==",
       "path": "system.text.json/9.0.5",
       "hashPath": "system.text.json.9.0.5.nupkg.sha512"
+    },
+    "System.Threading.Channels/9.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mxPWL9cgQos5PipA/1kg+GdG90HmMycQ077S5mlIWu+V1CGgVbmFiWcKRL+EQPSR8pmW1yVfzGEOrv0IJnrphA==",
+      "path": "system.threading.channels/9.0.5",
+      "hashPath": "system.threading.channels.9.0.5.nupkg.sha512"
     },
     "Airport.Data/1.0.0": {
       "type": "project",

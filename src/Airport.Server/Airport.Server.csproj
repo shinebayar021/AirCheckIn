@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Airport.Data\Airport.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>

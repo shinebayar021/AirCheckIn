@@ -4,46 +4,60 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Airport.Business.DTOs;
 using Airport.Data.Models;
-
+using Airport.Hubs;
+using Microsoft.AspNetCore.SignalR;
 namespace Airport.Server.Controllers
 {
-
-    // Nisleg entity  api
     [ApiController]
     [Route("api/[controller]")]
     public class FlightsController : ControllerBase
     {
         private readonly AirportDbContext _context;
+        private readonly IHubContext<SeatsHub> _hubContext;
 
-        public FlightsController(AirportDbContext context)
+        public FlightsController(AirportDbContext context, IHubContext<SeatsHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
-        //All flights GET
+
+        // All flights GET
         [HttpGet]
         public async Task<IActionResult> GetFlights()
         {
             var flights = await _context.Flights.ToListAsync();
             return Ok(flights);
         }
-        //Flight status UPDATE
+
+        // Flight status UPDATE
         [HttpPut("update-status/{flightNumber}")]
         public async Task<IActionResult> UpdateFlightStatus(string flightNumber, [FromBody] FlightStatus newStatus)
         {
             var flight = await _context.Flights.FirstOrDefaultAsync(f => f.FlightNumber == flightNumber);
-
             if (flight == null)
                 return NotFound(new { message = $"Flight '{flightNumber}' ?????????." });
 
             flight.Status = newStatus;
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Flight status ????????? ????????????." });
-        }
+            // Real-time ???????? ??????
+            // ???????????? flight ???????? ???????? ?? DTO ????? ??????? ?????? ?????.
+            var updatedDto = new
+            {
+                flight.FlightNumber,
+                flight.Status,
+                flight.DepartureTime,
+                // ... ???????????? ????? ?????????
+            };
 
+            await _hubContext.Clients.All.SendAsync("ReceiveFlightUpdate", updatedDto);
+
+            return Ok(new { message = "Flight ?????? ????????? ????????????." });
+        }
     }
-    // Seats controller
-    [ApiController]
+
+// Seats controller
+[ApiController]
     [Route("api/[controller]")]
     public class SeatsController : ControllerBase
     {

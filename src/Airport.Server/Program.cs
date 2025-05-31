@@ -1,17 +1,28 @@
-﻿using Airport.Data; // AirportDbContext байх ёстой
+﻿using Airport.Data;
+using Airport.Hubs;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// appsettings.json дахь холболтын мөрийг ашиглаж DbContext бүртгэх
+// ➤ SQLite DB context бүртгэх
 builder.Services.AddDbContext<AirportDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// **Контроллер нэмэх хэрэгтэй**
+// ➤ Контроллер болон SignalR нэмэх
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
+
+// ➤ Хэрэв хэрэгтэй бол SignalR-д зориулж compression
+builder.Services.AddResponseCompression(opts =>
+{
+    opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+        new[] { "application/octet-stream" });
+});
 
 var app = builder.Build();
 
+// ➤ DB үүсгэх, seed хийх
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AirportDbContext>();
@@ -19,12 +30,15 @@ using (var scope = app.Services.CreateScope())
     db.SeedData();
 }
 
-// **Routing болон контроллерийг холбох тохиргоо**
+// ➤ Middleware
 app.UseRouting();
+app.UseResponseCompression();
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
+    // ➤ SignalR Hub энд бүртгэгдэж байна
+    endpoints.MapHub<SeatsHub>("/seatshub");
 });
 
 app.Run();

@@ -15,7 +15,9 @@ namespace Airport.KioskClient
     public partial class Form1 : Form
     {
 
-        HubConnection hubConnection;
+        private HubConnection _hubConnection;
+        private string _currentFlightNumber = "";
+
 
         private Label? lblPassport;
         private TextBox? txtPassport;
@@ -33,23 +35,110 @@ namespace Airport.KioskClient
 
 
         private Button lblCheckInButton;
-
+       
         private String CheckInSeat;
         private readonly HttpClient _httpClient = new HttpClient();
 
         public Form1()
         {
             InitializeComponent();
-            hubConnection = new HubConnectionBuilder().WithUrl("http://localhost:5208/flightHub").Build();
+            _hubConnection = new HubConnectionBuilder().WithUrl("http://localhost:5208/flightHub").Build();
             this.AutoScaleMode = AutoScaleMode.None;
             SetupControls();
             //ачааллах үед онгоцны мэдээлэл харуулах async task ажиллах ёстой
-            this.Load += async (s, e) => await LoadFlightsAsync();
+            //this.Load += async (s, e) => await LoadFlightsAsync();
             //ачааллах үед онгоцны суудлууд
-            this.Load += async (s, e) => await SetupSeatUIAsync();
+            //this.Load += async (s, e) => await SetupSeatUIAsync();
+            this.Load += async (s, e) =>
+            {
+                await LoadFlightsAsync();
+                await SetupSeatUIAsync();
+                //await InitializeSignalRForFlight();
+            };
 
         }
+        //////////////////////////////////////////////
+        /// <summary>
+        /// 2. Сонгогдсон flightNumber-ын realtime группт нэгдэж, callback тохируулах
+        /// </summary>
+        private async Task InitializeSignalRForFlight()
+        {
+            // Хэрвээ өмнөх холболт байгаа бол зогсоож устгах
+            if (_hubConnection != null)
+            {
+                try
+                {
+                    await _hubConnection.StopAsync();
+                    await _hubConnection.DisposeAsync();
+                }
+                catch { /* үүдэл алдаа болгоомжгүй орхих */ }
+            }
 
+            // SignalR холболтыг шинээр үүсгэх
+            _hubConnection = new HubConnectionBuilder()
+                .WithUrl("http://localhost:5208/seatshub") // Сервер талын SeatsHub endpoint
+                .WithAutomaticReconnect()
+                .Build();
+
+            // 2.1. Server-аас "ReceiveSeatUpdate" event ирэхэд UpdateSeatInUI дуудагдана
+            _hubConnection.On<Seat>("ReceiveSeatUpdate", (updatedSeat) =>
+            {
+                // UI Thread дээр ажиллуулах учраас Invoke ашиглана
+                this.Invoke((Action)(() =>
+                {
+                    UpdateSeatInUI(updatedSeat);
+                }));
+            });
+
+            try
+            {
+                await _hubConnection.StartAsync();
+                // 2.2. Сонгогдсон flightNumber бүлэгт нэгдэх
+                await _hubConnection.InvokeAsync("JoinFlightGroup", CheckInSeat);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                        $"SignalR холболт үүсгэх үед алдаа гарлаа:\n{ex.Message}\n\nStack Trace:\n{ex.StackTrace}",
+                        "Алдаа",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+            }
+        }
+
+        /// <summary>
+        /// 2.3. Ирсэн updatedSeat-ийг UI дээр шинэчлэх (өнгөтэй харуулах)
+        /// </summary>
+        private void UpdateSeatInUI(Seat updatedSeat)
+        {
+            // 2.3.1. Шинэчлэгдсэн seatContainer (Panel)-ээ олох
+            var seatContainer = this.Controls
+                .OfType<Panel>()
+                .FirstOrDefault(p => p.Name == "seatContainer");
+            if (seatContainer == null) return;
+
+            // 2.3.2. TableLayoutPanel-ийг олж, Labels руу хандах
+            var table = seatContainer.Controls
+                .OfType<TableLayoutPanel>()
+                .FirstOrDefault();
+            if (table == null) return;
+
+            // 2.3.3. updatedSeat.SeatNumber-тэй таарч буй Label-ийг хайж, өнгийг шинэчлэх
+            foreach (Label lbl in table.Controls.OfType<Label>())
+            {
+                if ((string)lbl.Tag == updatedSeat.SeatNumber)
+                {
+                    lbl.BackColor = updatedSeat.IsOccupied
+                        ? Color.LightCoral
+                        : Color.LightGreen;
+                    break;
+                }
+            }
+        }
+        /// <summary>
+        /// ////////////////////////////////////////////////////////
+        /// </summary>
         private void CheckInButtonClick()
         {
 
@@ -72,6 +161,8 @@ namespace Airport.KioskClient
         // search button дарагдах үед
         private async void BtnSearch_Click(object? sender, EventArgs e)
         {
+
+            await SetupSeatUIAsync();
             string passport = txtPassport!.Text.Trim();
             if (string.IsNullOrEmpty(passport))
             {
@@ -222,7 +313,10 @@ namespace Airport.KioskClient
         {
             var seats = await LoadSeatsAsync();
 
-            // Хэрвээ өмнөх seatContainer байгаа бол устгах
+            // 2.2. Өмнөх сонгогдсон суудлыг цэвэрлэх
+            selectedSeatLabel = null;
+
+            // 2.1. Хэрвээ өмнөх seatContainer байгаа бол устгах
             var existingPanel = this.Controls.OfType<Panel>()
                                .FirstOrDefault(p => p.Name == "seatContainer");
             if (existingPanel != null)
@@ -231,7 +325,7 @@ namespace Airport.KioskClient
                 existingPanel.Dispose();
             }
 
-            // Шинэ Panel үүсгэх
+            // 2.3. Шинэ Panel үүсгэх
             var seatContainer = new Panel
             {
                 Name = "seatContainer",
@@ -243,7 +337,7 @@ namespace Airport.KioskClient
                 BorderStyle = BorderStyle.FixedSingle
             };
 
-            // TableLayoutPanel үүсгэх
+            // 2.4. TableLayoutPanel үүсгэх
             var table = new TableLayoutPanel
             {
                 RowCount = 30,
@@ -251,14 +345,12 @@ namespace Airport.KioskClient
                 Dock = DockStyle.Top,
                 AutoSize = true
             };
-            // Баган бүрийн өргөн
             for (int c = 0; c < 6; c++)
                 table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60));
-            // Мөр бүрийн өндөр
             for (int r = 0; r < 30; r++)
                 table.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
 
-            // Суудлуудыг байрлуулах
+            // 2.5. Суудлуудыг байрлуулах
             for (int row = 1; row <= 30; row++)
             {
                 for (int col = 0; col < 6; col++)
@@ -272,25 +364,24 @@ namespace Airport.KioskClient
                         TextAlign = ContentAlignment.MiddleCenter,
                         Dock = DockStyle.Fill,
                         Margin = new Padding(2),
-                        // Үл ашиглагдаагүй суудал: ногоон, эзлэгдсэн: улаан
                         BackColor = (seat != null && seat.IsOccupied)
                             ? Color.LightCoral
                             : Color.LightGreen,
-                        // Tag-д суудлын дугаар хадгалах
                         Tag = seatNumber,
-                        Cursor = Cursors.Hand // mouse pointer-г өөрчлөх
+                        Cursor = Cursors.Hand
                     };
 
-
-                    // Click эвент холбох
+                    // 2.6. Click эвент холбох
                     lblSeat.Click += SeatLabel_Click;
 
                     table.Controls.Add(lblSeat, col, row - 1);
                 }
             }
+
             seatContainer.Controls.Add(table);
             this.Controls.Add(seatContainer);
         }
+
 
         //Check in хийх process
         private async void LblCheckIn_Click(object sender, EventArgs e)

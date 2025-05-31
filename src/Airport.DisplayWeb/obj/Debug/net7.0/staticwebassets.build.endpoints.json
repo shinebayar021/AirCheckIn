@@ -3,7 +3,7 @@
   "ManifestType": "Build",
   "Endpoints": [
     {
-      "Route": "Airport.DisplayWeb.dlirzqe067.styles.css",
+      "Route": "Airport.DisplayWeb.fo6qme7mx6.styles.css",
       "AssetFile": "Airport.DisplayWeb.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -17,7 +17,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3027"
+          "Value": "8755"
         },
         {
           "Name": "Content-Type",
@@ -25,21 +25,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"H95xXRpzrZTbFBYbZG92kySuQS06/TXQetR2oQNg3k0=\""
+          "Value": "\"sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 30 May 2025 14:00:49 GMT"
+          "Value": "Sat, 31 May 2025 20:11:48 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "dlirzqe067"
+          "Value": "fo6qme7mx6"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-H95xXRpzrZTbFBYbZG92kySuQS06/TXQetR2oQNg3k0="
+          "Value": "sha256-sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8="
         },
         {
           "Name": "label",
@@ -62,7 +62,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3027"
+          "Value": "8755"
         },
         {
           "Name": "Content-Type",
@@ -70,17 +70,17 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"H95xXRpzrZTbFBYbZG92kySuQS06/TXQetR2oQNg3k0=\""
+          "Value": "\"sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 30 May 2025 14:00:49 GMT"
+          "Value": "Sat, 31 May 2025 20:11:48 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-H95xXRpzrZTbFBYbZG92kySuQS06/TXQetR2oQNg3k0="
+          "Value": "sha256-sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8="
         }
       ]
     },

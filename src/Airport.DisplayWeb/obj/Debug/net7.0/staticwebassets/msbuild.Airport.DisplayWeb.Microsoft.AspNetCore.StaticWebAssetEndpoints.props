@@ -1,16 +1,16 @@
 ﻿<Project>
   <ItemGroup>
     <StaticWebAssetEndpoint Include="_content/Airport.DisplayWeb/Airport.DisplayWeb.bundle.scp.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Airport.DisplayWeb.dlirzqe067.bundle.scp.css'))</AssetFile>
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Airport.DisplayWeb.fo6qme7mx6.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-H95xXRpzrZTbFBYbZG92kySuQS06/TXQetR2oQNg3k0="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"3027"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022H95xXRpzrZTbFBYbZG92kySuQS06/TXQetR2oQNg3k0=\u0022"},{"Name":"Last-Modified","Value":"Fri, 30 May 2025 14:00:49 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"8755"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\u0022"},{"Name":"Last-Modified","Value":"Sat, 31 May 2025 20:11:48 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/Airport.DisplayWeb/Airport.DisplayWeb.dlirzqe067.bundle.scp.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Airport.DisplayWeb.dlirzqe067.bundle.scp.css'))</AssetFile>
+    <StaticWebAssetEndpoint Include="_content/Airport.DisplayWeb/Airport.DisplayWeb.fo6qme7mx6.bundle.scp.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Airport.DisplayWeb.fo6qme7mx6.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"dlirzqe067"},{"Name":"integrity","Value":"sha256-H95xXRpzrZTbFBYbZG92kySuQS06/TXQetR2oQNg3k0="},{"Name":"label","Value":"_content/Airport.DisplayWeb/Airport.DisplayWeb.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3027"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022H95xXRpzrZTbFBYbZG92kySuQS06/TXQetR2oQNg3k0=\u0022"},{"Name":"Last-Modified","Value":"Fri, 30 May 2025 14:00:49 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"fo6qme7mx6"},{"Name":"integrity","Value":"sha256-sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8="},{"Name":"label","Value":"_content/Airport.DisplayWeb/Airport.DisplayWeb.bundle.scp.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"8755"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\u0022"},{"Name":"Last-Modified","Value":"Sat, 31 May 2025 20:11:48 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/Airport.DisplayWeb/css/bootstrap/bootstrap.min.bpk8xqwxhs.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\bootstrap\bootstrap.min.css'))</AssetFile>
