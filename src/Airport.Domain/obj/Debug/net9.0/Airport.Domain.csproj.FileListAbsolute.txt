@@ -1,0 +1,12 @@
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\bin\Debug\net9.0\Airport.Domain.deps.json
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\bin\Debug\net9.0\Airport.Domain.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\bin\Debug\net9.0\Airport.Domain.pdb
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.AssemblyInfoInputs.cache
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.AssemblyInfo.cs
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.csproj.CoreCompileInputs.cache
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.sourcelink.json
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\refint\Airport.Domain.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.pdb
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\ref\Airport.Domain.dll
