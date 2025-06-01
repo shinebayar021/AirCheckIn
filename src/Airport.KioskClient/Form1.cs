@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -39,9 +41,13 @@ namespace Airport.KioskClient
         private String CheckInSeat;
         private readonly HttpClient _httpClient = new HttpClient();
 
+        private ClientWebSocket _wsClient;
+        private CancellationTokenSource _wsCts;
+
         public Form1()
         {
             InitializeComponent();
+            InitializeWebSocket();
             _hubConnection = new HubConnectionBuilder().WithUrl("http://localhost:5208/flightHub").Build();
             this.AutoScaleMode = AutoScaleMode.None;
             SetupControls();
@@ -53,96 +59,86 @@ namespace Airport.KioskClient
             {
                 await LoadFlightsAsync();
                 await SetupSeatUIAsync();
-                //await InitializeSignalRForFlight();
+                
             };
 
+
+
         }
-        //////////////////////////////////////////////
-        /// <summary>
-        /// 2. Сонгогдсон flightNumber-ын realtime группт нэгдэж, callback тохируулах
-        /// </summary>
-        private async Task InitializeSignalRForFlight()
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            // Хэрвээ өмнөх холболт байгаа бол зогсоож устгах
-            if (_hubConnection != null)
-            {
-                try
-                {
-                    await _hubConnection.StopAsync();
-                    await _hubConnection.DisposeAsync();
-                }
-                catch { /* үүдэл алдаа болгоомжгүй орхих */ }
-            }
+            base.OnFormClosing(e);
+            // WebSocket-ийг хаахын тулд цуцалга хийх
+            _wsCts.Cancel();
+        }
 
-            // SignalR холболтыг шинээр үүсгэх
-            _hubConnection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:5208/seatshub") // Сервер талын SeatsHub endpoint
-                .WithAutomaticReconnect()
-                .Build();
-
-            // 2.1. Server-аас "ReceiveSeatUpdate" event ирэхэд UpdateSeatInUI дуудагдана
-            _hubConnection.On<Seat>("ReceiveSeatUpdate", (updatedSeat) =>
-            {
-                // UI Thread дээр ажиллуулах учраас Invoke ашиглана
-                this.Invoke((Action)(() =>
-                {
-                    UpdateSeatInUI(updatedSeat);
-                }));
-            });
+        private async void InitializeWebSocket()
+        {
+            _wsClient = new ClientWebSocket();
+            _wsCts = new CancellationTokenSource();
 
             try
             {
-                await _hubConnection.StartAsync();
-                // 2.2. Сонгогдсон flightNumber бүлэгт нэгдэх
-                await _hubConnection.InvokeAsync("JoinFlightGroup", CheckInSeat);
+                // 1. Серверийн WebSocket URL (жишээ нь)
+                var serverUri = new Uri("ws://localhost:5001/ws/");
+
+                // 2. Холбогдох
+                await _wsClient.ConnectAsync(serverUri, _wsCts.Token);
+                Console.WriteLine("WebSocket холбогдлоо.");
+
+                // 3. Клиент талд хүлээн авах цикл (таск дээр ажиллана)
+                _ = Task.Run(async () =>
+                {
+                    var buffer = new byte[4 * 1024];
+                    try
+                    {
+                        while (_wsClient.State == WebSocketState.Open && !_wsCts.IsCancellationRequested)
+                        {
+                            // 3.1. Серверээс мессеж хүлээн авах
+                            var result = await _wsClient.ReceiveAsync(
+                                new ArraySegment<byte>(buffer), 
+                                _wsCts.Token);
+
+                            if (result.MessageType == WebSocketMessageType.Text)
+                            {
+                                var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+
+                                // 3.2. UI thread дээр MessageBox эсвэл бусад UI update хийх
+                                Invoke(new Action(() =>
+                                {
+                                    MessageBox.Show(
+                                        $"Шинэ суудлын мэдээлэл ирлээ: {message}", 
+                                        "Seat Update");
+                                }));
+                            }
+                            else if (result.MessageType == WebSocketMessageType.Close)
+                            {
+                                // Сервер хаасан бол холболтоо хаах
+                                await _wsClient.CloseAsync(
+                                    WebSocketCloseStatus.NormalClosure, 
+                                    "Close response received", 
+                                    CancellationToken.None);
+                            }
+                        }
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // Цуцлагдсан үед энд орно
+                    }
+                    catch (WebSocketException wsex)
+                    {
+                        // Алдаа гарсан үед Console эсвэл лог дээр үзүүлнэ
+                        Console.WriteLine("WebSocket алдаа: " + wsex.Message);
+                    }
+                }, _wsCts.Token);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                        $"SignalR холболт үүсгэх үед алдаа гарлаа:\n{ex.Message}\n\nStack Trace:\n{ex.StackTrace}",
-                        "Алдаа",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
+                MessageBox.Show("WebSocket холбогдож чадаагүй: " + ex.Message);
             }
         }
 
-        /// <summary>
-        /// 2.3. Ирсэн updatedSeat-ийг UI дээр шинэчлэх (өнгөтэй харуулах)
-        /// </summary>
-        private void UpdateSeatInUI(Seat updatedSeat)
-        {
-            // 2.3.1. Шинэчлэгдсэн seatContainer (Panel)-ээ олох
-            var seatContainer = this.Controls
-                .OfType<Panel>()
-                .FirstOrDefault(p => p.Name == "seatContainer");
-            if (seatContainer == null) return;
-
-            // 2.3.2. TableLayoutPanel-ийг олж, Labels руу хандах
-            var table = seatContainer.Controls
-                .OfType<TableLayoutPanel>()
-                .FirstOrDefault();
-            if (table == null) return;
-
-            // 2.3.3. updatedSeat.SeatNumber-тэй таарч буй Label-ийг хайж, өнгийг шинэчлэх
-            foreach (Label lbl in table.Controls.OfType<Label>())
-            {
-                if ((string)lbl.Tag == updatedSeat.SeatNumber)
-                {
-                    lbl.BackColor = updatedSeat.IsOccupied
-                        ? Color.LightCoral
-                        : Color.LightGreen;
-                    break;
-                }
-            }
-        }
-        /// <summary>
-        /// ////////////////////////////////////////////////////////
-        /// </summary>
-        private void CheckInButtonClick()
-        {
-
-        }
 
 
         // бүртгэл хийгдсэн үед товч байхгүй, хийгдээгүй үед товч гарах
@@ -458,12 +454,19 @@ namespace Airport.KioskClient
                 var updateResponse = await client.PutAsync(url, content);
                 if (updateResponse.IsSuccessStatusCode)
                 {
-                    MessageBox.Show(
-                        "Суудал амжилттай захиалагдлаа!",
-                        "Амжилттай",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    var result = MessageBox.Show(
+                       "Суудал амжилттай захиалагдлаа!",
+                       "Амжилттай",
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Information
+                   );
+
+                    if (result == DialogResult.OK)
+                    {
+                        PrintBoardingPass(); 
+
+                        await SetupSeatUIAsync();
+                    }
 
                     // Шинэчлэгдсэн суудлын UI-г шинэчлэх (үргэлжлүүлэн харуулах эсвэл дахин сэргээх г.м.)
                     await SetupSeatUIAsync();
@@ -489,7 +492,27 @@ namespace Airport.KioskClient
             }
         }
 
+        private void PrintBoardingPass()
+        {
 
+            // zorchigchiin medeelliig oruulad mashiniin systemiin hevleh functseer damjuulna
+            PrintDocument printDoc = new PrintDocument();
+            printDoc.PrintPage += (sender, e) =>
+            {
+                e.Graphics.DrawString("Boarding Pass", new Font("Arial", 16), Brushes.Black, new PointF(100, 100));
+                e.Graphics.DrawString("Flight: AB123", new Font("Arial", 12), Brushes.Black, new PointF(100, 140));
+                e.Graphics.DrawString("Seat: 12A", new Font("Arial", 12), Brushes.Black, new PointF(100, 170));
+            };
+
+            try
+            {
+                printDoc.Print();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Хэвлэх явцад алдаа гарлаа: " + ex.Message);
+            }
+        }
 
     }
 

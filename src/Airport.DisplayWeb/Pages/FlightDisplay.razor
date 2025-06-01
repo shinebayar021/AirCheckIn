@@ -37,7 +37,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        // Анх API-аас flight-уудыг татах
+        // Api-aa get hiih
         try
         {
             flights = await Http.GetFromJsonAsync<List<FlightInfo>>("http://localhost:5208/api/flights") ?? new List<FlightInfo>();
@@ -48,16 +48,16 @@
             flights = new List<FlightInfo>();
         }
 
-        // SignalR Hub-д холбогдох
+        // SignalR Hub holbolt
         hubConnection = new HubConnectionBuilder()
-            .WithUrl("http://localhost:5208/seatshub")  // Таны SignalR Hub URL
+            .WithUrl("http://localhost:5208/statushub") 
             .WithAutomaticReconnect()
             .Build();
 
-        // Flight статус шинэчлэгдсэн event-г хүлээж авах
+        // RecieveFlightUpdate client listener
         hubConnection.On<FlightInfo>("ReceiveFlightUpdate", (updatedFlight) =>
         {
-            // Жагсаалтыг шинэчлэх
+            // Listee update hiih
             var index = flights.FindIndex(f => f.FlightNumber == updatedFlight.FlightNumber);
             if (index != -1)
             {
@@ -74,7 +74,7 @@
         await hubConnection.StartAsync();
     }
 
-    // Компонент хаагдах үед холболтыг салгах
+    // Component haagdah uyd salgalt hiine
     public async ValueTask DisposeAsync()
     {
         if (hubConnection is not null)
@@ -102,7 +102,7 @@
             <div class="header-cell">STATUS</div>
         </div>
 
-        @* Хэрвээ жагсаалт хоосон бол "-" маягаар харуулна *@
+        @* List hooson bol "-" *@
         @if (flights == null || flights.Count == 0)
         {
             <div class="flight-row status-unknown">
@@ -121,30 +121,25 @@
             @foreach (var flight in flights)
             {
                 <div class="flight-row @GetStatusClass(flight.Status)">
-                    <!-- Flight number -->
+  
                     <div class="flight-cell flight-number">
                         @flight.FlightNumber
                     </div>
 
-                    <!-- ROUTE: JSON-д байхгүй тул "-" эсвэл та өөрийн логик оруулна -->
                     <div class="flight-cell route">
                         <span class="origin">@DefaultText</span>
                         <span class="arrow">→</span>
                         <span class="destination">@DefaultText</span>
                     </div>
 
-                    <!-- DEPARTURE: JSON-д ирж буй departureTime -->
                     <div class="flight-cell time">
                         @flight.DepartureTime.ToString("HH:mm")
                     </div>
 
-                    <!-- ARRIVAL: JSON-д ирэхгүй тул "-" эсвэл өөр логик -->
                     <div class="flight-cell time">@DefaultText</div>
 
-                    <!-- AIRCRAFT: JSON-д ирэхгүй тул "-" эсвэл өөр логик -->
                     <div class="flight-cell aircraft">@DefaultText</div>
 
-                    <!-- STATUS: JSON-д ирж буй status -->
                     <div class="flight-cell status">
                         <span class="status-badge @GetStatusClass(flight.Status)">
                             @GetStatusDisplay(flight.Status)
@@ -157,7 +152,6 @@
 </div>
 
 <style>
-    /* Энгийн жишээ CSS */
     .flight-display-container {
         font-family: Arial, sans-serif;
         margin: 20px;
@@ -229,32 +223,31 @@
         color: white;
     }
 
-    /* Статус бүрд тусгай өнгө өгөх */
     .status-registering {
-        background-color: #ffc107; /* шар өнгө */
+        background-color: #ffc107;
     }
 
     .status-boarding {
-        background-color: #007bff; /* цэнхэр */
+        background-color: #007bff;
     }
 
     .status-on-time {
-        background-color: #28a745; /* ногоон */
+        background-color: #28a745;
     }
 
     .status-delayed {
-        background-color: #dc3545; /* улаан */
+        background-color: #dc3545;
     }
 
     .status-cancelled {
-        background-color: #6c757d; /* саарал */
+        background-color: #6c757d; 
     }
 
     .status-unknown {
-        background-color: #6c757d; /* саарал */
+        background-color: #6c757d;   
     }
 
-    /* Flight row-ын фонгийн өнгө өгч мөн ялгах боломжтой */
+          
     .flight-row.status-registering {
         background-color: rgba(255, 193, 7, 0.1);
     }

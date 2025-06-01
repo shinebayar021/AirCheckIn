@@ -6,6 +6,9 @@ using Airport.Business.DTOs;
 using Airport.Data.Models;
 using Airport.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using Airport.Server.Services;
+
+
 namespace Airport.Server.Controllers
 {
     [ApiController]
@@ -13,9 +16,10 @@ namespace Airport.Server.Controllers
     public class FlightsController : ControllerBase
     {
         private readonly AirportDbContext _context;
-        private readonly IHubContext<SeatsHub> _hubContext;
+        //IHubContext<SeatsHub> interface ni serverees client ruu SignalR Hub-aar damjuulgan ilgeeh bolomj olgono
+        private readonly IHubContext<StatusHub> _hubContext;
 
-        public FlightsController(AirportDbContext context, IHubContext<SeatsHub> hubContext)
+        public FlightsController(AirportDbContext context, IHubContext<StatusHub> hubContext)
         {
             _context = context;
             _hubContext = hubContext;
@@ -29,10 +33,11 @@ namespace Airport.Server.Controllers
             return Ok(flights);
         }
 
-        // Flight status UPDATE
+        // Flight status UPDATE flightNumber buyu ongotsnii dugaaraar hain UPDATE hiih
         [HttpPut("update-status/{flightNumber}")]
         public async Task<IActionResult> UpdateFlightStatus(string flightNumber, [FromBody] FlightStatus newStatus)
         {
+            // context-oos haih
             var flight = await _context.Flights.FirstOrDefaultAsync(f => f.FlightNumber == flightNumber);
             if (flight == null)
                 return NotFound(new { message = $"Flight '{flightNumber}' ?????????." });
@@ -41,15 +46,15 @@ namespace Airport.Server.Controllers
             await _context.SaveChangesAsync();
 
             // Real-time ???????? ??????
-            // ???????????? flight ???????? ???????? ?? DTO ????? ??????? ?????? ?????.
+            // Shinechlegdsen flight objectiig model baidlaar yvuulah
             var updatedDto = new
             {
                 flight.FlightNumber,
                 flight.Status,
                 flight.DepartureTime,
-                // ... ???????????? ????? ?????????
             };
 
+            // Client heseg ruu uurchlultuu yvulah "ReceiveFlightUpdate"-ni client taliin method ner
             await _hubContext.Clients.All.SendAsync("ReceiveFlightUpdate", updatedDto);
 
             return Ok(new { message = "Flight ?????? ????????? ????????????." });
@@ -62,10 +67,12 @@ namespace Airport.Server.Controllers
     public class SeatsController : ControllerBase
     {
         private readonly AirportDbContext _context;
+        private readonly IHubContext<StatusHub> _hubContext;
 
-        public SeatsController(AirportDbContext context)
+        public SeatsController(AirportDbContext context, IHubContext<StatusHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         //Buh ongotsnii buh suudal
@@ -80,7 +87,7 @@ namespace Airport.Server.Controllers
         [HttpGet("by-flight/{flightNumber}")]
         public async Task<IActionResult> GetSeatsByFlight(string flightNumber)
         {
-            // Flight-??? flightNumber-??? ????
+            // Haih
             var flight = await _context.Flights
                 .FirstOrDefaultAsync(f => f.FlightNumber == flightNumber);
 
@@ -102,22 +109,51 @@ namespace Airport.Server.Controllers
         [HttpPut("seat-status")]
         public async Task<IActionResult> UpdateSeat([FromBody] SeatUpdateDto updatedSeat)
         {
+            //api test
             if (updatedSeat == null || string.IsNullOrEmpty(updatedSeat.SeatNumber))
                 return BadRequest("Invalid seat data.");
-
+            //haih
             var seat = await _context.Seats
                 .FirstOrDefaultAsync(s => s.SeatNumber == updatedSeat.SeatNumber && s.FlightId == updatedSeat.FlightId);
-
+            //api test
             if (seat == null)
                 return NotFound("Seat not found.");
+            //conflict message
+            //if (seat.IsOccupied)
+             //   return Conflict("Seat is already occupied.");
 
-            seat.IsOccupied = updatedSeat.IsOccupied;
-            seat.PassengerId = updatedSeat.PassengerId;
+            var seatKey = $"{updatedSeat.FlightId}_{updatedSeat.SeatNumber}";
 
-            await _context.SaveChangesAsync();
+            if (!SeatLockManager.TryLockSeat(seatKey))
+            {
+                return Conflict("Seat is temporarily locked by another user.");
+            }
 
-            return Ok(seat);
+            try
+            {
+
+
+                seat.IsOccupied = updatedSeat.IsOccupied;
+                seat.PassengerId = updatedSeat.PassengerId;
+
+                await _context.SaveChangesAsync();
+
+                SeatLockManager.UnlockSeat(seatKey);
+
+                var payload = $"SeatUpdated;Flight={seat.FlightId};Seat={seat.SeatNumber};Occupied={seat.IsOccupied}";
+                await WebSocketServerService.BroadcastAsync(payload);
+
+                await _hubContext.Clients.All.SendAsync("SeatUpdated", $"Seat {seat.SeatNumber} on Flight {seat.FlightId} is now occupied.");
+
+                return Ok(seat);
+            }
+            catch (Exception)
+            {
+                SeatLockManager.UnlockSeat(seatKey);
+                throw;
+            }
         }
+
         // ??????? ??? ?????? ?????? ???????? ??????? ??????
         [HttpGet("checked-in/{passengerId}")]
         public async Task<IActionResult> HasPassengerCheckedIn(int passengerId)

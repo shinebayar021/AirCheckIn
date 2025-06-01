@@ -2,9 +2,9 @@
 
 namespace Airport.Hubs
 {
-    public class SeatsHub : Hub
+    public class StatusHub : Hub
     {
-        // Нэгэн суудал update хийх үед бусад client-д push хийх
+        // update хийх үед бусад client-д push хийх
         public async Task SendSeatUpdate(string seatNumber, bool isBooked)
         {
             await Clients.Others.SendAsync("ReceiveSeatUpdate", seatNumber, isBooked);
