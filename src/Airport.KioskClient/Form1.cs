@@ -44,6 +44,8 @@ namespace Airport.KioskClient
         private ClientWebSocket _wsClient;
         private CancellationTokenSource _wsCts;
 
+        private ListBox socketMessageList;
+
         public Form1()
         {
             InitializeComponent();
@@ -85,7 +87,7 @@ namespace Airport.KioskClient
 
                 // 2. Холбогдох
                 await _wsClient.ConnectAsync(serverUri, _wsCts.Token);
-                Console.WriteLine("WebSocket холбогдлоо.");
+                Console.WriteLine("WebSocket connection success.");
 
                 // 3. Клиент талд хүлээн авах цикл (таск дээр ажиллана)
                 _ = Task.Run(async () =>
@@ -107,9 +109,7 @@ namespace Airport.KioskClient
                                 // 3.2. UI thread дээр MessageBox эсвэл бусад UI update хийх
                                 Invoke(new Action(() =>
                                 {
-                                    MessageBox.Show(
-                                        $"Шинэ суудлын мэдээлэл ирлээ: {message}", 
-                                        "Seat Update");
+                                    socketMessageList.Items.Add(message);
                                 }));
                             }
                             else if (result.MessageType == WebSocketMessageType.Close)
@@ -129,13 +129,13 @@ namespace Airport.KioskClient
                     catch (WebSocketException wsex)
                     {
                         // Алдаа гарсан үед Console эсвэл лог дээр үзүүлнэ
-                        Console.WriteLine("WebSocket алдаа: " + wsex.Message);
+                        Console.WriteLine("WebSocket error: " + wsex.Message);
                     }
                 }, _wsCts.Token);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("WebSocket холбогдож чадаагүй: " + ex.Message);
+                MessageBox.Show("WebSocket connection error: " + ex.Message);
             }
         }
 
@@ -252,7 +252,7 @@ namespace Airport.KioskClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Алдаа гарлаа: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
@@ -385,7 +385,7 @@ namespace Airport.KioskClient
             // 1. Сонгосон суудлын дугаар байгаа эсэхийг шалгах
             if (selectedSeatLabel == null || !(selectedSeatLabel.Tag is string seatNumber))
             {
-                MessageBox.Show("Суудлаа сонгоно уу.", "Анхаар", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Suudlaa songo.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -399,7 +399,7 @@ namespace Airport.KioskClient
             // 3. Нислэгийн ID-г ComboBox.SelectedValue-аас авч чаддаг болгох
             if (!int.TryParse(cmbFlights.SelectedValue?.ToString(), out int flightId))
             {
-                MessageBox.Show("Нислэг сонгогдоогүй байна.", "Анхаар", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Nisleg songogdoogui.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -419,8 +419,8 @@ namespace Airport.KioskClient
                     if (alreadyCheckedIn)
                     {
                         MessageBox.Show(
-                            "Та аль хэдийн суудал захиалсан байна. Дахин суудал сонгох боломжгүй.",
-                            "Мэдэгдэнэ",
+                            "Ali hediin suudal songoson baina.",
+                            "HHH",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information
                         );
@@ -430,8 +430,8 @@ namespace Airport.KioskClient
                 else
                 {
                     MessageBox.Show(
-                        $"Check-in шалгалт хийхэд алдаа гарлаа. Статус код: {checkResponse.StatusCode}",
-                        "Алдаа",
+                        $"Check-in shalgaltiin alda. Статус код: {checkResponse.StatusCode}",
+                        "Aldaa",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
                     );
@@ -455,8 +455,8 @@ namespace Airport.KioskClient
                 if (updateResponse.IsSuccessStatusCode)
                 {
                     var result = MessageBox.Show(
-                       "Суудал амжилттай захиалагдлаа!",
-                       "Амжилттай",
+                       "Suudal amjilttai songogdov",
+                       "Amjilttai",
                        MessageBoxButtons.OK,
                        MessageBoxIcon.Information
                    );
@@ -474,8 +474,8 @@ namespace Airport.KioskClient
                 else
                 {
                     MessageBox.Show(
-                        $"Суудал шинэчлэхэд алдаа гарлаа. Статус код: {updateResponse.StatusCode}",
-                        "Алдаа",
+                        $"Suudal burtegehed aldaa garav. : {updateResponse.StatusCode}",
+                        "Aldaa",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
                     );
@@ -484,8 +484,8 @@ namespace Airport.KioskClient
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    $"Харилцааны алдаа гарлаа: {ex.Message}",
-                    "Алдаа",
+                    $" Trycatch err {ex.Message}",
+                    "Aldaa",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
@@ -510,7 +510,7 @@ namespace Airport.KioskClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Хэвлэх явцад алдаа гарлаа: " + ex.Message);
+                MessageBox.Show("Hevleh hesgiin aldaa: " + ex.Message);
             }
         }
 

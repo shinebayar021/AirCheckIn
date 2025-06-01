@@ -92,9 +92,9 @@ namespace Airport.KioskClient
             {
                 Text = "CheckIn",
                 Left = 340,
-                Top = 320,
+                Top = 190,
                 Width = 80,
-                Height = 50
+                Height = 40
             };
             lblCheckInButton.Click += LblCheckIn_Click;
 
@@ -109,6 +109,14 @@ namespace Airport.KioskClient
             cmbFlightStatus.Items.AddRange(Enum.GetNames(typeof(FlightStatus)));
             cmbFlightStatus.SelectedIndex = 0;
             this.Controls.Add(cmbFlightStatus);
+
+            socketMessageList = new ListBox()
+            {
+                Left = 10,
+                Top = 290,
+                Width = 400,
+                HorizontalScrollbar = true
+            };
 
             Button btnUpdateStatus = new Button()
             {
@@ -178,6 +186,8 @@ namespace Airport.KioskClient
                 }
             };
 
+           
+
             this.Controls.Add(lblPassport);
             this.Controls.Add(txtPassport);
             this.Controls.Add(btnSearch);
@@ -187,7 +197,7 @@ namespace Airport.KioskClient
             this.Controls.Add(lblPassportNumber);
             this.Controls.Add(lblBookingsDetails);
 
-            
+            this.Controls.Add(socketMessageList);
 
 
         }

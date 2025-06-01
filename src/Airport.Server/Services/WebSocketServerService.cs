@@ -153,6 +153,7 @@ namespace Airport.Server.Services
             foreach (var kvp in _sockets)
             {
                 var socket = kvp.Value;
+                 
                 if (socket != null && socket.State == WebSocketState.Open)
                 {
                     tasks.Add(socket.SendAsync(new ArraySegment<byte>(data),

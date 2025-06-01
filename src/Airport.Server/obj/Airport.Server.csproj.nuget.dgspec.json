@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Server\\Airport.Server.csproj": {}
+    "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.server\\Airport.Server.csproj": {}
   },
   "projects": {
     "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Business\\Airport.Business.csproj": {
@@ -226,14 +226,14 @@
         }
       }
     },
-    "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Server\\Airport.Server.csproj": {
+    "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.server\\Airport.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Server\\Airport.Server.csproj",
+        "projectUniqueName": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.server\\Airport.Server.csproj",
         "projectName": "Airport.Server",
-        "projectPath": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Server\\Airport.Server.csproj",
+        "projectPath": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.server\\Airport.Server.csproj",
         "packagesPath": "C:\\Users\\sssin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Server\\obj\\",
+        "outputPath": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

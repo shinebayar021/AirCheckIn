@@ -29,7 +29,7 @@ namespace Airport.Server.Controllers
         public async Task<IActionResult> SearchByPassport(string passport)
         {
             if (string.IsNullOrEmpty(passport))
-                return BadRequest("Passport number is required.");
+                return BadRequest("Passport dugaaraa oruul.");
 
             var passengerWithBookings = await _context.Passengers
                 .Where(p => p.PassportNumber == passport)
@@ -40,7 +40,7 @@ namespace Airport.Server.Controllers
                 .FirstOrDefaultAsync();
 
             if (passengerWithBookings == null)
-                return NotFound($"No passenger found with passport number {passport}");
+                return NotFound($"Oldsongui {passport}");
             //??????????????????????????????????????????????????????????????????
             var result = new
             {
