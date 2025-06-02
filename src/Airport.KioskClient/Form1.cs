@@ -11,6 +11,10 @@ using System.Windows.Forms;
 using Airport.Data.Models;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Client;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Data.SqlClient;
+
 
 namespace Airport.KioskClient
 {
@@ -60,7 +64,7 @@ namespace Airport.KioskClient
             this.Load += async (s, e) =>
             {
                 await LoadFlightsAsync();
-                await SetupSeatUIAsync();
+               // await SetupSeatUIAsync();
                 
             };
 
@@ -107,9 +111,10 @@ namespace Airport.KioskClient
                                 var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
 
                                 // 3.2. UI thread дээр MessageBox эсвэл бусад UI update хийх
-                                Invoke(new Action(() =>
+                                Invoke(new Action(async () =>
                                 {
                                     socketMessageList.Items.Add(message);
+                                    await SetupSeatUIAsync();
                                 }));
                             }
                             else if (result.MessageType == WebSocketMessageType.Close)
@@ -158,7 +163,7 @@ namespace Airport.KioskClient
         private async void BtnSearch_Click(object? sender, EventArgs e)
         {
 
-            await SetupSeatUIAsync();
+           
             string passport = txtPassport!.Text.Trim();
             if (string.IsNullOrEmpty(passport))
             {
@@ -206,17 +211,16 @@ namespace Airport.KioskClient
                         BookingId = b.GetProperty("bookingId").GetInt32(),
                         FlightNumber = b.GetProperty("flightNumber").GetString(),
                         DepartureTime = b.GetProperty("departureTime").GetDateTime(),
-                        SeatNumber = b.GetProperty("seatNumber").GetString(),
                         CheckedIn = b.GetProperty("checkedIn").GetBoolean()
                     }).ToList();
 
                 lblMessage.Text = $"Found {bookings.Count} booking(s) for {fullName}";
                 lblBookingsDetails.Text = string.Join(Environment.NewLine, bookings.Select(b =>
-                                     $"Booking ID: {b.BookingId}, Flight: {b.FlightNumber}, Seat: {b.SeatNumber}, " +
+                                     $"Booking ID: {b.BookingId}, Flight: {b.FlightNumber}, " +
                                      $"Departure: {b.DepartureTime}, Checked In: {(b.CheckedIn ? "Yes" : "No")}"));
 
                 CheckInSeat = bookings.FirstOrDefault()?.FlightNumber ?? "0";
-
+                await SetupSeatUIAsync();
                 foreach (var b in bookings)
                 {
                     CheckInConsoleMessage(b.CheckedIn);
@@ -279,7 +283,7 @@ namespace Airport.KioskClient
         }
 
         //suudliin label click hiih handler
-        private void SeatLabel_Click(object sender, EventArgs e)
+        private void SeatLabel_Click(object sender, EventArgs e)//TODO buruu ongotsnii sudal songood baiga
         {
             if (sender is Label lbl && lbl.Tag is string seatNumber)
             {
@@ -397,9 +401,41 @@ namespace Airport.KioskClient
             //}
 
             // 3. Нислэгийн ID-г ComboBox.SelectedValue-аас авч чаддаг болгох
-            if (!int.TryParse(cmbFlights.SelectedValue?.ToString(), out int flightId))
+            //if (!int.TryParse(cmbFlights.SelectedValue?.ToString(), out int flightId)) // TODO nislegiig databasees avah
+            //{
+            //    MessageBox.Show("Nisleg songogdoogui.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
+
+            
+
+
+            int flightId = 0;
+            try
             {
-                MessageBox.Show("Nisleg songogdoogui.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                string connectionString = @"Data Source=C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\airport.db";
+                using (var connection = new Microsoft.Data.Sqlite.SqliteConnection(connectionString))
+                {
+                    connection.Open();
+                    using (var command = new Microsoft.Data.Sqlite.SqliteCommand("SELECT FlightId FROM Flights WHERE FlightNumber = @CheckInSeat", connection))
+                    {
+                        command.Parameters.AddWithValue("@CheckInSeat", CheckInSeat);
+                        var result = command.ExecuteScalar();
+                        if (result != null && int.TryParse(result.ToString(), out flightId))
+                        {
+                            // Flight ID found
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nislegiin medeelel oldsongui.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Database aldaa: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

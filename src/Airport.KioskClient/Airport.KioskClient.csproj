@@ -6,7 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.5" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
   </ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Remove = "Form1.resx"/>
+	</ItemGroup>
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
