@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Airport.DisplayWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c595009096d934d91c1d2ddece1448d8af490206")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08102b89f6836718f99af0b03f07264acb6b4504")]
 [assembly: System.Reflection.AssemblyProductAttribute("Airport.DisplayWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Airport.DisplayWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

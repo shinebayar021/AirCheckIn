@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "src\\Airport.Server\\Airport.Server.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\Airport.KioskClient\\Airport.KioskClient.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\Airport.DisplayWeb\\Airport.DisplayWeb.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

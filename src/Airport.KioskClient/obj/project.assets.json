@@ -1531,23 +1531,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\sssin\\.nuget\\packages\\": {},
+    "C:\\Users\\sanja\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.KioskClient\\Airport.KioskClient.csproj",
+      "projectUniqueName": "C:\\Users\\sanja\\source\\repos\\AirCheckIn\\src\\Airport.KioskClient\\Airport.KioskClient.csproj",
       "projectName": "Airport.KioskClient",
-      "projectPath": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.KioskClient\\Airport.KioskClient.csproj",
-      "packagesPath": "C:\\Users\\sssin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.KioskClient\\obj\\",
+      "projectPath": "C:\\Users\\sanja\\source\\repos\\AirCheckIn\\src\\Airport.KioskClient\\Airport.KioskClient.csproj",
+      "packagesPath": "C:\\Users\\sanja\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sanja\\source\\repos\\AirCheckIn\\src\\Airport.KioskClient\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\sssin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sanja\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1562,8 +1562,8 @@
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
           "projectReferences": {
-            "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Data\\Airport.Data.csproj": {
-              "projectPath": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Data\\Airport.Data.csproj"
+            "C:\\Users\\sanja\\source\\repos\\AirCheckIn\\src\\Airport.Data\\Airport.Data.csproj": {
+              "projectPath": "C:\\Users\\sanja\\source\\repos\\AirCheckIn\\src\\Airport.Data\\Airport.Data.csproj"
             }
           }
         }
@@ -1608,7 +1608,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

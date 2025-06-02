@@ -10,3 +10,15 @@ C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\A
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\refint\Airport.Domain.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.pdb
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Domain\obj\Debug\net9.0\ref\Airport.Domain.dll
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\bin\Debug\net9.0\Airport.Domain.deps.json
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\bin\Debug\net9.0\Airport.Domain.dll
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\bin\Debug\net9.0\Airport.Domain.pdb
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.AssemblyInfoInputs.cache
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.AssemblyInfo.cs
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.csproj.CoreCompileInputs.cache
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.sourcelink.json
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.dll
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\obj\Debug\net9.0\refint\Airport.Domain.dll
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\obj\Debug\net9.0\Airport.Domain.pdb
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Domain\obj\Debug\net9.0\ref\Airport.Domain.dll
