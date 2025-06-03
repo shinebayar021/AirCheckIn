@@ -14,8 +14,7 @@ namespace Airport.Server.Services
         private readonly HttpListener _httpListener;
         private const string Prefix = "http://localhost:5001/ws/";
 
-        // олон холболт байж болно, тиймээс ConcurrentDictionary ашиглаж байна.
-        // Ключ нь дурын unique ID. Энд Guid ашиглана.
+        // олон холболт байж болно, тиймээс ConcurrentDictionary(map) ашиглана.
         private static readonly ConcurrentDictionary<string, WebSocket> _sockets
             = new ConcurrentDictionary<string, WebSocket>();
 
@@ -36,24 +35,28 @@ namespace Airport.Server.Services
         {
             try
             {
+                // zogsoh huselt ireegui uyd
                 while (!stoppingToken.IsCancellationRequested)
                 {
                     var context = await _httpListener.GetContextAsync();
 
                     if (context.Request.IsWebSocketRequest)
                     {
-                        // Клиент холбогдсоны дараа тусдаа таск дээр боловсруулна.
+                        // Client holbogdson bol ene taskiig hiine
                         _ = Task.Run(async () =>
                         {
                             var wsContext = await context.AcceptWebSocketAsync(subProtocol: null);
                             var socket = wsContext.WebSocket;
+                            //Guid.NewGuid() ni shine unique tanih temdeg
                             string socketId = Guid.NewGuid().ToString();
 
-                            // Холбогдсон холболтыг хадгалах
+                            // Client holboltoo hadgalah esvel nemeh
                             _sockets.TryAdd(socketId, socket);
                             Console.WriteLine($"[WebSocketServerService] Client connected: {socketId}");
 
                             var buffer = new byte[4 * 1024];
+                            // socket clientaas message huleej avaad text baival clientaas irsen message-iig uurchluhguigeer
+                            // hariu ilgeene client->server
                             try
                             {
                                 while (socket.State == WebSocketState.Open && !stoppingToken.IsCancellationRequested)
@@ -81,10 +84,10 @@ namespace Airport.Server.Services
                                     }
                                 }
                             }
-                            catch { /* receive дээр алдаа гарсан бол үргэлжлүүлэхгүй. */ }
+                            catch { /* Huleen avah deer aldaa garsan bol urgeljlehgui. */ }
                             finally
                             {
-                                // Холболт хаагдсаны дараа сүлжээнээс салгах
+                                // Holbolt haagdsan bol suljeeneesee salgaj avah
                                 _sockets.TryRemove(socketId, out _);
                                 if (socket.State != WebSocketState.Closed)
                                 {
@@ -105,11 +108,11 @@ namespace Airport.Server.Services
             }
             catch (HttpListenerException ex) when (ex.ErrorCode == 995)
             {
-                // HttpListener зогсоосноос болсон exception-ыг энд барьж болно
+                // HttpListener zogsoosnoos bolson exception-g end baridag
             }
             catch (OperationCanceledException)
             {
-                // Цуцлагдсан үед энд орно
+                // Tsutslagdsan bol
             }
         }
 
@@ -118,7 +121,7 @@ namespace Airport.Server.Services
             _httpListener.Stop();
             Console.WriteLine("[WebSocketServerService] Listener stopped");
 
-            // Сүлжээнд байгаа бүх WebSocket-ыг хаах
+            // Suljeend baigaa buh socket-oo haah
             foreach (var kvp in _sockets)
             {
                 var socket = kvp.Value;

@@ -109,48 +109,44 @@ namespace Airport.Server.Controllers
         [HttpPut("seat-status")]
         public async Task<IActionResult> UpdateSeat([FromBody] SeatUpdateDto updatedSeat)
         {
-            //api test
+            //for api test
             if (updatedSeat == null || string.IsNullOrEmpty(updatedSeat.SeatNumber))
                 return BadRequest("Bad request...");
-            //haih
-            var seat = await _context.Seats
-                .FirstOrDefaultAsync(s => s.SeatNumber == updatedSeat.SeatNumber && s.FlightId == updatedSeat.FlightId);
-            //api test
-            if (seat == null)
-                return NotFound("Suudal oldsongui.");
-            //conflict message
-            //if (seat.IsOccupied)
-             //   return Conflict("Seat is already occupied.");
-
+            //seat key uusgeh, ene ni zereg adil suudal songoh processd ashiglana
             var seatKey = $"{updatedSeat.FlightId}_{updatedSeat.SeatNumber}";
 
-            if (!SeatLockManager.TryLockSeat(seatKey))
+            if (!await SeatLockManager.WaitToLockSeatAsync(seatKey))
             {
-                return Conflict("Suudal lock hiigdsen.");
+                return Conflict("Suudal odoogoor uur hereglegch songoj baina.");
             }
 
             try
             {
+                var seat = await _context.Seats
+                    .FirstOrDefaultAsync(s => s.SeatNumber == updatedSeat.SeatNumber && s.FlightId == updatedSeat.FlightId);
 
+                if (seat == null)
+                    return NotFound("Suudal oldsongui.");
+
+                if (seat.IsOccupied)
+                    return Conflict("Suudal ali hediin songoson baina.");
 
                 seat.IsOccupied = updatedSeat.IsOccupied;
                 seat.PassengerId = updatedSeat.PassengerId;
 
                 await _context.SaveChangesAsync();
 
-                SeatLockManager.UnlockSeat(seatKey);
-
                 var payload = $"Nisleg {seat.FlightId} deer {seat.SeatNumber} suudal songogdloo.";
                 await WebSocketServerService.BroadcastAsync(payload);
 
                 return Ok(seat);
             }
-            catch (Exception)
+            finally
             {
                 SeatLockManager.UnlockSeat(seatKey);
-                throw;
             }
         }
+
 
         // Checked in ?????? ????? ?????? GET
         [HttpGet("checked-in/{passengerId}")]

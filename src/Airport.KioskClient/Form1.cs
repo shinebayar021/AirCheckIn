@@ -386,21 +386,21 @@ namespace Airport.KioskClient
         //Check in хийх process
         private async void LblCheckIn_Click(object sender, EventArgs e)
         {
-            // 1. Сонгосон суудлын дугаар байгаа эсэхийг шалгах
+            //  Сонгосон суудлын дугаар байгаа эсэхийг шалгах
             if (selectedSeatLabel == null || !(selectedSeatLabel.Tag is string seatNumber))
             {
                 MessageBox.Show("Suudlaa songo.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Зорчигчийн ID-г Label-аас зөвшөөрөгдөхөөр авч чаддаг болгох (Жишээ: "2" гэсэн тоог шууд харуулсан гэж тооцно)
+            //  Зорчигчийн ID-г Label-аас зөвшөөрөгдөхөөр авч чаддаг болгох (Жишээ: "2" гэсэн тоог шууд харуулсан гэж тооцно)
             //if (!int.TryParse(MpassengerId, out int passengerId))
             //{
             //    MessageBox.Show("Зорчигчийн ID буруу байна.", "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //    return;
             //}
 
-            // 3. Нислэгийн ID-г ComboBox.SelectedValue-аас авч чаддаг болгох
+            //  Нислэгийн ID-г ComboBox.SelectedValue-аас авч чаддаг болгох
             //if (!int.TryParse(cmbFlights.SelectedValue?.ToString(), out int flightId)) // TODO nislegiig databasees avah
             //{
             //    MessageBox.Show("Nisleg songogdoogui.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -443,7 +443,7 @@ namespace Airport.KioskClient
             {
                 using var client = new HttpClient();
 
-                // 4. Зорчигч өмнө нь check-in хийсэн эсэхийг API-аар шалгах
+                //  Зорчигч өмнө нь check-in хийсэн эсэхийг API-аар шалгах
                 var checkUrl = $"http://localhost:5208/api/seats/checked-in/{MpassengerId}";
                 var checkResponse = await client.GetAsync(checkUrl);
 
@@ -474,7 +474,7 @@ namespace Airport.KioskClient
                     return;
                 }
 
-                // 5. Шаардлага тэнцсэн тул суудлыг захиалах (PUT үлдээх API дуудах)
+                //  Шаардлага тэнцсэн тул суудлыг захиалах (PUT үлдээх API дуудах)
                 var seatToUpdate = new Seat
                 {
                     SeatNumber = seatNumber,

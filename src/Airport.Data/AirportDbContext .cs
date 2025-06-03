@@ -2,6 +2,7 @@
 using Airport.Data.Models;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Airport.Data
 {
@@ -76,13 +77,38 @@ namespace Airport.Data
             Bookings.AddRange(booking1, booking2, booking3);
             SaveChanges();
 
-            // 5) Баталгаа хэвлэх
+            // 5) Шинэ зорчигч нэмэх ба MN100 нислэгтэй холбох
+            var newPassenger = new Passenger
+            {
+                PassportNumber = "GH9988776",
+                FullName = "Ganaa Nyamdorj"
+            };
+            Passengers.Add(newPassenger);
+            SaveChanges();
+
+            var freeSeat = seats
+                .Where(s => s.FlightId == flight1.FlightId && !Bookings.Any(b => b.SeatId == s.SeatId))
+                .FirstOrDefault();
+
+            if (freeSeat != null)
+            {
+                var newBooking = new Booking
+                {
+                    FlightId = flight1.FlightId,
+                    PassengerId = newPassenger.PassengerId,
+                    SeatId = freeSeat.SeatId,
+                    CheckedIn = false
+                };
+                Bookings.Add(newBooking);
+                SaveChanges();
+            }
+
+            // 6) Баталгаа хэвлэх
             Console.WriteLine("Seeded Flights and Seats:");
             foreach (var f in Flights)
             {
                 Console.WriteLine($"Flight {f.FlightNumber} has {Seats.Count(s => s.FlightId == f.FlightId)} seats.");
             }
         }
-
     }
 }
