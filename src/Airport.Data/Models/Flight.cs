@@ -14,7 +14,7 @@ namespace Airport.Data.Models
 
     public class Flight
     {
-        [JsonPropertyName("flightId")]
+        [JsonPropertyName("flightId")] // TODO
         public int FlightId { get; set; }
         [JsonPropertyName("flightNumber")]
         public string FlightNumber { get; set; } = null!;

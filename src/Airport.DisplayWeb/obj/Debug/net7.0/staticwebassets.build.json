@@ -1,6 +1,10 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "Hash": "pC2akLsJg9Rjheyz5fRQbIcRfsEX91HEUVddFEICiRs=",
+=======
+  "Hash": "EyjdhHqm0CfPbMyDV8FtVzDpD1oFB0z1GSpLYI+TAAI=",
+>>>>>>> 0c08b9a6a2f35086afcbc561c7473badc6ec198c
   "Source": "Airport.DisplayWeb",
   "BasePath": "_content/Airport.DisplayWeb",
   "Mode": "Default",
@@ -356,7 +360,11 @@
         },
         {
           "Name": "Last-Modified",
+<<<<<<< HEAD
           "Value": "Mon, 02 Jun 2025 11:10:38 GMT"
+=======
+          "Value": "Mon, 02 Jun 2025 16:15:25 GMT"
+>>>>>>> 0c08b9a6a2f35086afcbc561c7473badc6ec198c
         },
         {
           "Name": "Cache-Control",
@@ -393,7 +401,11 @@
         },
         {
           "Name": "Last-Modified",
+<<<<<<< HEAD
           "Value": "Mon, 02 Jun 2025 11:10:38 GMT"
+=======
+          "Value": "Mon, 02 Jun 2025 16:15:25 GMT"
+>>>>>>> 0c08b9a6a2f35086afcbc561c7473badc6ec198c
         },
         {
           "Name": "Cache-Control",
@@ -438,7 +450,11 @@
         },
         {
           "Name": "Last-Modified",
+<<<<<<< HEAD
           "Value": "Mon, 02 Jun 2025 11:10:38 GMT"
+=======
+          "Value": "Mon, 02 Jun 2025 16:15:25 GMT"
+>>>>>>> 0c08b9a6a2f35086afcbc561c7473badc6ec198c
         },
         {
           "Name": "Cache-Control",
@@ -483,7 +499,11 @@
         },
         {
           "Name": "Last-Modified",
+<<<<<<< HEAD
           "Value": "Mon, 02 Jun 2025 11:10:38 GMT"
+=======
+          "Value": "Mon, 02 Jun 2025 16:15:25 GMT"
+>>>>>>> 0c08b9a6a2f35086afcbc561c7473badc6ec198c
         },
         {
           "Name": "Cache-Control",

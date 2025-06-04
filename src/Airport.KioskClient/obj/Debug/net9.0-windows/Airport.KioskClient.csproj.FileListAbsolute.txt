@@ -29,7 +29,11 @@ C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\SQLitePCLRaw.batteries_v2.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\SQLitePCLRaw.core.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\SQLitePCLRaw.provider.e_sqlite3.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\System.Data.SqlClient.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\System.Net.ServerSentEvents.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win-x86\native\sni.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\browser-wasm\nativeassets\net9.0\e_sqlite3.a
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\linux-arm\native\libe_sqlite3.so
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\linux-arm64\native\libe_sqlite3.so
@@ -51,6 +55,8 @@ C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win-x86\native\e_sqlite3.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win\lib\net8.0\System.Data.SqlClient.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\Airport.Data.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\Airport.Domain.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\Airport.Data.pdb
@@ -142,3 +148,9 @@ C:\Users\sanja\source\repos\AirCheckIn\src\Airport.KioskClient\obj\Debug\net9.0-
 C:\Users\sanja\source\repos\AirCheckIn\src\Airport.KioskClient\obj\Debug\net9.0-windows\Airport.KioskClient.pdb
 C:\Users\sanja\source\repos\AirCheckIn\src\Airport.KioskClient\obj\Debug\net9.0-windows\Airport.KioskClient.genruntimeconfig.cache
 C:\Users\sanja\source\repos\AirCheckIn\src\Airport.KioskClient\obj\Debug\net9.0-windows\ref\Airport.KioskClient.dll
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\System.Data.SqlClient.dll
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\sanja\source\repos\AirCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win\lib\net8.0\System.Data.SqlClient.dll

@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// SQLite DB context бүртгэх
+// SQLite DB context
 builder.Services.AddDbContext<AirportDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Контроллер болон SignalR нэмэх
+// SignalR aa nemev
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
 
-// WebSocketServerService-ийг Hosted Service болгон бүртгэнэ
+// WebSocketServerService Hosted Service-aar nemeh
 builder.Services.AddHostedService<WebSocketServerService>();
 
-//  Хэрэв хэрэгтэй бол SignalR-д зориулж compression
+//  compress(hurd nemne)
 builder.Services.AddResponseCompression(opts =>
 {
     opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
@@ -26,7 +26,7 @@ builder.Services.AddResponseCompression(opts =>
 
 var app = builder.Build();
 
-// DB үүсгэх, seed хийх
+// DB uusgeh, seed hiih process
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AirportDbContext>();
@@ -41,7 +41,6 @@ app.UseResponseCompression();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    // SignalR Hub энд бүртгэгдэж байна
     endpoints.MapHub<StatusHub>("/statushub");
 });
 

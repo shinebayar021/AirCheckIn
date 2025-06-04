@@ -11,6 +11,10 @@ using System.Windows.Forms;
 using Airport.Data.Models;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Client;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Data.SqlClient;
+
 
 namespace Airport.KioskClient
 {
@@ -60,7 +64,7 @@ namespace Airport.KioskClient
             this.Load += async (s, e) =>
             {
                 await LoadFlightsAsync();
-                await SetupSeatUIAsync();
+               // await SetupSeatUIAsync();
                 
             };
 
@@ -107,9 +111,10 @@ namespace Airport.KioskClient
                                 var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
 
                                 // 3.2. UI thread дээр MessageBox эсвэл бусад UI update хийх
-                                Invoke(new Action(() =>
+                                Invoke(new Action(async () =>
                                 {
                                     socketMessageList.Items.Add(message);
+                                    await SetupSeatUIAsync();
                                 }));
                             }
                             else if (result.MessageType == WebSocketMessageType.Close)
@@ -159,7 +164,7 @@ namespace Airport.KioskClient
         private async void BtnSearch_Click(object? sender, EventArgs e)
         {
 
-            await SetupSeatUIAsync();
+           
             string passport = txtPassport!.Text.Trim();
             if (string.IsNullOrEmpty(passport))
             {
@@ -207,17 +212,16 @@ namespace Airport.KioskClient
                         BookingId = b.GetProperty("bookingId").GetInt32(),
                         FlightNumber = b.GetProperty("flightNumber").GetString(),
                         DepartureTime = b.GetProperty("departureTime").GetDateTime(),
-                        SeatNumber = b.GetProperty("seatNumber").GetString(),
                         CheckedIn = b.GetProperty("checkedIn").GetBoolean()
                     }).ToList();
 
                 lblMessage.Text = $"Found {bookings.Count} booking(s) for {fullName}";
                 lblBookingsDetails.Text = string.Join(Environment.NewLine, bookings.Select(b =>
-                                     $"Booking ID: {b.BookingId}, Flight: {b.FlightNumber}, Seat: {b.SeatNumber}, " +
+                                     $"Booking ID: {b.BookingId}, Flight: {b.FlightNumber}, " +
                                      $"Departure: {b.DepartureTime}, Checked In: {(b.CheckedIn ? "Yes" : "No")}"));
 
                 CheckInSeat = bookings.FirstOrDefault()?.FlightNumber ?? "0";
-
+                await SetupSeatUIAsync();
                 foreach (var b in bookings)
                 {
                     CheckInConsoleMessage(b.CheckedIn);
@@ -280,7 +284,7 @@ namespace Airport.KioskClient
         }
 
         //suudliin label click hiih handler
-        private void SeatLabel_Click(object sender, EventArgs e)
+        private void SeatLabel_Click(object sender, EventArgs e)//TODO buruu ongotsnii sudal songood baiga
         {
             if (sender is Label lbl && lbl.Tag is string seatNumber)
             {
@@ -383,24 +387,56 @@ namespace Airport.KioskClient
         //Check in хийх process
         private async void LblCheckIn_Click(object sender, EventArgs e)
         {
-            // 1. Сонгосон суудлын дугаар байгаа эсэхийг шалгах
+            //  Сонгосон суудлын дугаар байгаа эсэхийг шалгах
             if (selectedSeatLabel == null || !(selectedSeatLabel.Tag is string seatNumber))
             {
                 MessageBox.Show("Suudlaa songo.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Зорчигчийн ID-г Label-аас зөвшөөрөгдөхөөр авч чаддаг болгох (Жишээ: "2" гэсэн тоог шууд харуулсан гэж тооцно)
+            //  Зорчигчийн ID-г Label-аас зөвшөөрөгдөхөөр авч чаддаг болгох (Жишээ: "2" гэсэн тоог шууд харуулсан гэж тооцно)
             //if (!int.TryParse(MpassengerId, out int passengerId))
             //{
             //    MessageBox.Show("Зорчигчийн ID буруу байна.", "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //    return;
             //}
 
-            // 3. Нислэгийн ID-г ComboBox.SelectedValue-аас авч чаддаг болгох
-            if (!int.TryParse(cmbFlights.SelectedValue?.ToString(), out int flightId))
+            //  Нислэгийн ID-г ComboBox.SelectedValue-аас авч чаддаг болгох
+            //if (!int.TryParse(cmbFlights.SelectedValue?.ToString(), out int flightId)) // TODO nislegiig databasees avah
+            //{
+            //    MessageBox.Show("Nisleg songogdoogui.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
+
+            
+
+
+            int flightId = 0;
+            try
             {
-                MessageBox.Show("Nisleg songogdoogui.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                string connectionString = @"Data Source=C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\airport.db";
+                using (var connection = new Microsoft.Data.Sqlite.SqliteConnection(connectionString))
+                {
+                    connection.Open();
+                    using (var command = new Microsoft.Data.Sqlite.SqliteCommand("SELECT FlightId FROM Flights WHERE FlightNumber = @CheckInSeat", connection))
+                    {
+                        command.Parameters.AddWithValue("@CheckInSeat", CheckInSeat);
+                        var result = command.ExecuteScalar();
+                        if (result != null && int.TryParse(result.ToString(), out flightId))
+                        {
+                            // Flight ID found
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nislegiin medeelel oldsongui.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Database aldaa: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -408,7 +444,7 @@ namespace Airport.KioskClient
             {
                 using var client = new HttpClient();
 
-                // 4. Зорчигч өмнө нь check-in хийсэн эсэхийг API-аар шалгах
+                //  Zorchigchiin check-in hiigdsen esehiig shalgadag baih
                 var checkUrl = $"http://localhost:5208/api/seats/checked-in/{MpassengerId}";
                 var checkResponse = await client.GetAsync(checkUrl);
 
@@ -439,7 +475,7 @@ namespace Airport.KioskClient
                     return;
                 }
 
-                // 5. Шаардлага тэнцсэн тул суудлыг захиалах (PUT үлдээх API дуудах)
+                //  Шаардлага тэнцсэн тул суудлыг захиалах (PUT үлдээх API дуудах)
                 var seatToUpdate = new Seat
                 {
                     SeatNumber = seatNumber,

@@ -30,7 +30,7 @@ namespace Airport.Server.Controllers
         {
             if (string.IsNullOrEmpty(passport))
                 return BadRequest("Passport dugaaraa oruul.");
-
+            // passenger-aa bookingtai tsugt ni gargah
             var passengerWithBookings = await _context.Passengers
                 .Where(p => p.PassportNumber == passport)
                 .Include(p => p.Bookings)
@@ -41,7 +41,7 @@ namespace Airport.Server.Controllers
 
             if (passengerWithBookings == null)
                 return NotFound($"Oldsongui {passport}");
-            //??????????????????????????????????????????????????????????????????
+            //result-aa haruuldag bolgoh
             var result = new
             {
                 PassengerId = passengerWithBookings.PassengerId,

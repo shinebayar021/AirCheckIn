@@ -4,13 +4,21 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Airport.DisplayWeb.fo6qme7mx6.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8="}]]]></EndpointProperties>
+<<<<<<< HEAD
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"8755"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 02 Jun 2025 11:10:38 GMT"}]]]></ResponseHeaders>
+=======
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"8755"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 02 Jun 2025 16:15:25 GMT"}]]]></ResponseHeaders>
+>>>>>>> 0c08b9a6a2f35086afcbc561c7473badc6ec198c
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/Airport.DisplayWeb/Airport.DisplayWeb.fo6qme7mx6.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Airport.DisplayWeb.fo6qme7mx6.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"fo6qme7mx6"},{"Name":"integrity","Value":"sha256-sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8="},{"Name":"label","Value":"_content/Airport.DisplayWeb/Airport.DisplayWeb.bundle.scp.css"}]]]></EndpointProperties>
+<<<<<<< HEAD
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"8755"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 02 Jun 2025 11:10:38 GMT"}]]]></ResponseHeaders>
+=======
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"8755"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\u0022"},{"Name":"Last-Modified","Value":"Mon, 02 Jun 2025 16:15:25 GMT"}]]]></ResponseHeaders>
+>>>>>>> 0c08b9a6a2f35086afcbc561c7473badc6ec198c
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/Airport.DisplayWeb/css/bootstrap/bootstrap.min.6gzpyzhau4.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\bootstrap\bootstrap.min.css'))</AssetFile>
