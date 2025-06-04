@@ -1,22 +1,22 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Airport.DisplayWeb.fo6qme7mx6.bundle.scp.css'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Airport.DisplayWeb.zlzsf33pox.bundle.scp.css'))">
       <SourceType>Package</SourceType>
       <SourceId>Airport.DisplayWeb</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/Airport.DisplayWeb</BasePath>
-      <RelativePath>Airport.DisplayWeb.fo6qme7mx6.bundle.scp.css</RelativePath>
+      <RelativePath>Airport.DisplayWeb.zlzsf33pox.bundle.scp.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>Reference</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName>ScopedCss</AssetTraitName>
       <AssetTraitValue>ProjectBundle</AssetTraitValue>
-      <Fingerprint>fo6qme7mx6</Fingerprint>
-      <Integrity>sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=</Integrity>
+      <Fingerprint>zlzsf33pox</Fingerprint>
+      <Integrity>R25CSqY9XDlJP8IBm9Z4OVhDlp+kFzU3j3CB3gy/CPM=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Airport.DisplayWeb.fo6qme7mx6.bundle.scp.css'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Airport.DisplayWeb.zlzsf33pox.bundle.scp.css'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\bootstrap\bootstrap.min.css'))">
       <SourceType>Package</SourceType>

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Airport.KioskClient")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0ca08919774f5579408e5a5aa233ebddf818ac95")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af3139a3877309b386836b94a178934b4a761e40")]
 [assembly: System.Reflection.AssemblyProductAttribute("Airport.KioskClient")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Airport.KioskClient")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

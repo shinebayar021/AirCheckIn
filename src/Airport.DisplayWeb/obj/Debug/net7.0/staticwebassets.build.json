@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "g5ucY3CdLzBJfsmtBJ3kZgmiTiKMLM0Xq5TNz2h6fGs=",
+  "Hash": "RYs8VGmNfI47C2BK27qD46yWzh6/WyfyVCVqXerziF0=",
   "Source": "Airport.DisplayWeb",
   "BasePath": "_content/Airport.DisplayWeb",
   "Mode": "Default",
@@ -31,8 +31,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "fo6qme7mx6",
-      "Integrity": "sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=",
+      "Fingerprint": "zlzsf33pox",
+      "Integrity": "R25CSqY9XDlJP8IBm9Z4OVhDlp+kFzU3j3CB3gy/CPM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\sanja\\source\\repos\\AirCheckIn\\src\\Airport.DisplayWeb\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Airport.DisplayWeb.styles.css"
@@ -52,8 +52,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "fo6qme7mx6",
-      "Integrity": "sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=",
+      "Fingerprint": "zlzsf33pox",
+      "Integrity": "R25CSqY9XDlJP8IBm9Z4OVhDlp+kFzU3j3CB3gy/CPM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\sanja\\source\\repos\\AirCheckIn\\src\\Airport.DisplayWeb\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Airport.DisplayWeb.bundle.scp.css"
@@ -344,7 +344,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8755"
+          "Value": "7297"
         },
         {
           "Name": "Content-Type",
@@ -352,11 +352,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\""
+          "Value": "\"R25CSqY9XDlJP8IBm9Z4OVhDlp+kFzU3j3CB3gy/CPM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Jun 2025 17:11:30 GMT"
+          "Value": "Wed, 04 Jun 2025 17:36:47 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -366,97 +366,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8="
-        }
-      ]
-    },
-    {
-      "Route": "Airport.DisplayWeb.fo6qme7mx6.bundle.scp.css",
-      "AssetFile": "C:\\Users\\sanja\\source\\repos\\AirCheckIn\\src\\Airport.DisplayWeb\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Airport.DisplayWeb.bundle.scp.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "8755"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 04 Jun 2025 17:11:30 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "fo6qme7mx6"
-        },
-        {
-          "Name": "label",
-          "Value": "Airport.DisplayWeb.bundle.scp.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8="
-        }
-      ]
-    },
-    {
-      "Route": "Airport.DisplayWeb.fo6qme7mx6.styles.css",
-      "AssetFile": "C:\\Users\\sanja\\source\\repos\\AirCheckIn\\src\\Airport.DisplayWeb\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Airport.DisplayWeb.styles.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "8755"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 04 Jun 2025 17:11:30 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "fo6qme7mx6"
-        },
-        {
-          "Name": "label",
-          "Value": "Airport.DisplayWeb.styles.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8="
+          "Value": "sha256-R25CSqY9XDlJP8IBm9Z4OVhDlp+kFzU3j3CB3gy/CPM="
         }
       ]
     },
@@ -471,7 +381,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8755"
+          "Value": "7297"
         },
         {
           "Name": "Content-Type",
@@ -479,11 +389,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8=\""
+          "Value": "\"R25CSqY9XDlJP8IBm9Z4OVhDlp+kFzU3j3CB3gy/CPM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Jun 2025 17:11:30 GMT"
+          "Value": "Wed, 04 Jun 2025 17:36:47 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -493,7 +403,97 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-sZ0Y16OFp//DTNfEzC43HkzQEL558sCeATMEylUBJl8="
+          "Value": "sha256-R25CSqY9XDlJP8IBm9Z4OVhDlp+kFzU3j3CB3gy/CPM="
+        }
+      ]
+    },
+    {
+      "Route": "Airport.DisplayWeb.zlzsf33pox.bundle.scp.css",
+      "AssetFile": "C:\\Users\\sanja\\source\\repos\\AirCheckIn\\src\\Airport.DisplayWeb\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Airport.DisplayWeb.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7297"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"R25CSqY9XDlJP8IBm9Z4OVhDlp+kFzU3j3CB3gy/CPM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 04 Jun 2025 17:36:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zlzsf33pox"
+        },
+        {
+          "Name": "label",
+          "Value": "Airport.DisplayWeb.bundle.scp.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-R25CSqY9XDlJP8IBm9Z4OVhDlp+kFzU3j3CB3gy/CPM="
+        }
+      ]
+    },
+    {
+      "Route": "Airport.DisplayWeb.zlzsf33pox.styles.css",
+      "AssetFile": "C:\\Users\\sanja\\source\\repos\\AirCheckIn\\src\\Airport.DisplayWeb\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Airport.DisplayWeb.styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7297"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"R25CSqY9XDlJP8IBm9Z4OVhDlp+kFzU3j3CB3gy/CPM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 04 Jun 2025 17:36:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zlzsf33pox"
+        },
+        {
+          "Name": "label",
+          "Value": "Airport.DisplayWeb.styles.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-R25CSqY9XDlJP8IBm9Z4OVhDlp+kFzU3j3CB3gy/CPM="
         }
       ]
     },

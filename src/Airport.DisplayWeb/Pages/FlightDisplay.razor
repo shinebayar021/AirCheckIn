@@ -1,10 +1,11 @@
-﻿@page "/flight-display"
+﻿@page "/"
+@page "/flight-display"
 
 @using System.Net.Http.Json
 @using Airport.DisplayWeb.Data
 @using Microsoft.AspNetCore.SignalR.Client;
 @implements IAsyncDisposable
-
+@inject IJSRuntime JSRuntime
 @inject HttpClient Http
 
 <PageTitle>Flight Information Display</PageTitle>
@@ -12,6 +13,8 @@
 @code {
     private List<FlightInfo> flights = new List<FlightInfo>();
     private HubConnection? hubConnection;
+    private string currentTime = DateTime.Now.ToString("HH:mm:ss - dd MMMM yyyy");
+    private IJSObjectReference? jsModule;
 
     private string GetStatusDisplay(string status) => status switch
     {
@@ -37,7 +40,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        // Api-aa get hiih
+        // Load flights
         try
         {
             flights = await Http.GetFromJsonAsync<List<FlightInfo>>("http://localhost:5208/api/flights") ?? new List<FlightInfo>();
@@ -48,16 +51,14 @@
             flights = new List<FlightInfo>();
         }
 
-        // SignalR Hub holbolt
+        // SignalR Hub connection
         hubConnection = new HubConnectionBuilder()
-            .WithUrl("http://localhost:5208/statushub") 
+            .WithUrl("http://localhost:5208/statushub")
             .WithAutomaticReconnect()
             .Build();
 
-        // RecieveFlightUpdate client listener
         hubConnection.On<FlightInfo>("ReceiveFlightUpdate", (updatedFlight) =>
         {
-            // Listee update hiih
             var index = flights.FindIndex(f => f.FlightNumber == updatedFlight.FlightNumber);
             if (index != -1)
             {
@@ -67,20 +68,42 @@
             {
                 flights.Add(updatedFlight);
             }
-
             InvokeAsync(StateHasChanged);
         });
 
         await hubConnection.StartAsync();
     }
 
-    // Component haagdah uyd salgalt hiine
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // JavaScript timer ehluuleh
+            await JSRuntime.InvokeVoidAsync("startClock", DotNetObjectReference.Create(this));
+        }
+    }
+
+    [JSInvokable]
+    public async Task UpdateTime()
+    {
+        currentTime = DateTime.Now.ToString("HH:mm:ss - dd MMMM yyyy");
+        await InvokeAsync(StateHasChanged);
+    }
+
     public async ValueTask DisposeAsync()
     {
         if (hubConnection is not null)
         {
             await hubConnection.DisposeAsync();
         }
+
+        if (jsModule is not null)
+        {
+            await jsModule.DisposeAsync();
+        }
+
+        // Stop the JavaScript timer
+        await JSRuntime.InvokeVoidAsync("stopClock");
     }
 }
 
@@ -88,7 +111,7 @@
     <div class="display-header">
         <h1>✈️ FLIGHT INFORMATION</h1>
         <div class="current-time">
-            @DateTime.Now.ToString("HH:mm:ss - dd MMMM yyyy")
+            @currentTime
         </div>
     </div>
 
@@ -102,7 +125,6 @@
             <div class="header-cell">STATUS</div>
         </div>
 
-        @* List hooson bol "-" *@
         @if (flights == null || flights.Count == 0)
         {
             <div class="flight-row status-unknown">
@@ -121,25 +143,19 @@
             @foreach (var flight in flights)
             {
                 <div class="flight-row @GetStatusClass(flight.Status)">
-  
                     <div class="flight-cell flight-number">
                         @flight.FlightNumber
                     </div>
-
                     <div class="flight-cell route">
                         <span class="origin">@DefaultText</span>
                         <span class="arrow">→</span>
                         <span class="destination">@DefaultText</span>
                     </div>
-
                     <div class="flight-cell time">
                         @flight.DepartureTime.ToString("HH:mm")
                     </div>
-
                     <div class="flight-cell time">@DefaultText</div>
-
                     <div class="flight-cell aircraft">@DefaultText</div>
-
                     <div class="flight-cell status">
                         <span class="status-badge @GetStatusClass(flight.Status)">
                             @GetStatusDisplay(flight.Status)
@@ -151,124 +167,20 @@
     </div>
 </div>
 
-<style>
-    .flight-display-container {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-    }
+<script>
+    let clockInterval;
+    let dotNetHelper;
 
-    .display-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-    }
+    window.startClock = (dotNetObjectReference) => {
+        dotNetHelper = dotNetObjectReference;
+        clockInterval = setInterval(() => {
+            dotNetHelper.invokeMethodAsync('UpdateTime');
+        }, 1000);
+    };
 
-        .display-header h1 {
-            margin: 0;
-            font-size: 24px;
+    window.stopClock = () => {
+        if (clockInterval) {
+            clearInterval(clockInterval);
         }
-
-    .current-time {
-        font-size: 14px;
-        color: #555;
-    }
-
-    .flights-board {
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        overflow: hidden;
-    }
-
-    .flight-header,
-    .flight-row {
-        display: grid;
-        grid-template-columns: 1fr 2fr 1fr 1fr 2fr 1fr;
-        padding: 8px 12px;
-        align-items: center;
-    }
-
-    .flight-header {
-        background-color: #f2f2f2;
-        font-weight: bold;
-    }
-
-    .header-cell,
-    .flight-cell {
-        padding: 4px;
-    }
-
-    .flight-number {
-        font-weight: 600;
-    }
-
-    .route .origin,
-    .route .destination {
-        display: inline-block;
-        width: 30px;
-        text-align: center;
-    }
-
-    .route .arrow {
-        display: inline-block;
-        width: 10px;
-        text-align: center;
-    }
-
-    .status-badge {
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 13px;
-        font-weight: 500;
-        color: white;
-    }
-
-    .status-registering {
-        background-color: #ffc107;
-    }
-
-    .status-boarding {
-        background-color: #007bff;
-    }
-
-    .status-on-time {
-        background-color: #28a745;
-    }
-
-    .status-delayed {
-        background-color: #dc3545;
-    }
-
-    .status-cancelled {
-        background-color: #6c757d; 
-    }
-
-    .status-unknown {
-        background-color: #6c757d;   
-    }
-
-          
-    .flight-row.status-registering {
-        background-color: rgba(255, 193, 7, 0.1);
-    }
-
-    .flight-row.status-boarding {
-        background-color: rgba(0, 123, 255, 0.1);
-    }
-
-    .flight-row.status-on-time {
-        background-color: rgba(40, 167, 69, 0.1);
-    }
-
-    .flight-row.status-delayed {
-        background-color: rgba(220, 53, 69, 0.1);
-    }
-
-    .flight-row.status-cancelled {
-        background-color: rgba(108, 117, 125, 0.1);
-    }
-
-    .flight-row.status-unknown {
-        background-color: rgba(108, 117, 125, 0.1);
-    }
-</style>
+    };
+</script>

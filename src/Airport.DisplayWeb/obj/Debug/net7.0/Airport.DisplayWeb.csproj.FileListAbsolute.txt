@@ -63,7 +63,6 @@ C:\Users\sanja\source\repos\AirCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\A
 C:\Users\sanja\source\repos\AirCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\Airport.DisplayWeb.sourcelink.json
 C:\Users\sanja\source\repos\AirCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\scopedcss\Pages\FlightDisplay.razor.rz.scp.css
 C:\Users\sanja\source\repos\AirCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-C:\Users\sanja\source\repos\AirCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
 C:\Users\sanja\source\repos\AirCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\scopedcss\bundle\Airport.DisplayWeb.styles.css
 C:\Users\sanja\source\repos\AirCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\scopedcss\projectbundle\Airport.DisplayWeb.bundle.scp.css
 C:\Users\sanja\source\repos\AirCheckIn\src\Airport.DisplayWeb\obj\Debug\net7.0\staticwebassets.build.json
