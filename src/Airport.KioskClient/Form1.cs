@@ -330,10 +330,10 @@ namespace Airport.KioskClient
             var seatContainer = new Panel
             {
                 Name = "seatContainer",
-                Left = 470,
-                Top = 30,
-                Width = 440,
-                Height = 400,
+                Left = 520,
+                Top = 100,
+                Width = 375,
+                Height = 580,
                 AutoScroll = true,
                 BorderStyle = BorderStyle.FixedSingle
             };
@@ -390,7 +390,7 @@ namespace Airport.KioskClient
             //  Сонгосон суудлын дугаар байгаа эсэхийг шалгах
             if (selectedSeatLabel == null || !(selectedSeatLabel.Tag is string seatNumber))
             {
-                MessageBox.Show("Suudlaa songo.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Suudlaa songono uu.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -414,7 +414,7 @@ namespace Airport.KioskClient
             int flightId = 0;
             try
             {
-                string connectionString = @"Data Source=C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\airport.db";
+                string connectionString = @"Data Source=C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Server\airport.db";
                 using (var connection = new Microsoft.Data.Sqlite.SqliteConnection(connectionString))
                 {
                     connection.Open();
@@ -467,7 +467,7 @@ namespace Airport.KioskClient
                 else
                 {
                     MessageBox.Show(
-                        $"Check-in shalgaltiin alda. Статус код: {checkResponse.StatusCode}",
+                        $"Check-in shalgaltiin aldaa. Статус код: {checkResponse.StatusCode}",
                         "Aldaa",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
