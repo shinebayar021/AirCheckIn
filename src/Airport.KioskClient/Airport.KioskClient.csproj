@@ -9,10 +9,6 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
   </ItemGroup>
 
-	<ItemGroup>
-		<EmbeddedResource Remove = "Form1.resx"/>
-	</ItemGroup>
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>

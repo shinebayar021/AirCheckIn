@@ -10,174 +10,241 @@ namespace Airport.KioskClient
 {
     public partial class Form1 : Form
     {
-
         private void SetupControls()
         {
-
-            this.Text = "Passenger Search by Passport";
-            this.Width = 500;
-            this.Height = 450;
+            // Үндсэн форм тохиргоо
+            this.Text = "Нисэх онгоцны буудлын киоск - Зорчигч бүртгэх систем";
+            this.Width = 1000;
+            this.Height = 700;
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Color.FromArgb(240, 248, 255); // Цайвар цэнхэр өнгө
+            this.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
 
-            lblBookingsDetails = new Label()
+            // Гарчиг панел
+            Panel headerPanel = new Panel()
             {
-                Left = 10,
-                Top = 110,
-                Width = 460,
+                Left = 0,
+                Top = 0,
+                Width = this.Width,
                 Height = 80,
-                ForeColor = System.Drawing.Color.Black,
-                AutoSize = false
+                BackColor = Color.FromArgb(70, 130, 180),
+                Dock = DockStyle.Top
+            };
+
+            Label headerLabel = new Label()
+            {
+                Text = "✈️ КИОСК",
+                Left = 20,
+                Top = 20,
+                Width = 600,
+                Height = 40,
+                Font = new Font("Segoe UI", 18F, FontStyle.Bold),
+                ForeColor = Color.White,
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            headerPanel.Controls.Add(headerLabel);
+            this.Controls.Add(headerPanel);
+
+            // Зорчигч хайх хэсэг
+            GroupBox searchGroup = new GroupBox()
+            {
+                Text = "Зорчигчийн мэдээлэл хайх",
+                Left = 20,
+                Top = 100,
+                Width = 480,
+                Height = 180,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(70, 130, 180)
             };
 
             lblPassport = new Label()
             {
-                Text = "Passport Number:",
-                Left = 10,
-                Top = 20,
-                Width = 110
+                Text = "Паспортын дугаар:",
+                Left = 20,
+                Top = 30,
+                Width = 140,
+                Height = 25,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(60, 60, 60)
             };
 
             txtPassport = new TextBox()
             {
-                Left = 130,
-                Top = 18,
-                Width = 200
+                Left = 20,
+                Top = 55,
+                Width = 250,
+                Height = 30,
+                Font = new Font("Segoe UI", 10F),
+                BorderStyle = BorderStyle.FixedSingle
             };
 
             btnSearch = new Button()
             {
-                Text = "Search",
-                Left = 340,
-                Top = 16,
-                Width = 80,
-                Height = 30
+                Text = "🔍 Хайх",
+                Left = 280,
+                Top = 53,
+                Width = 100,
+                Height = 35,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                BackColor = Color.FromArgb(70, 130, 180),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand
             };
+            btnSearch.FlatAppearance.BorderSize = 0;
             btnSearch.Click += BtnSearch_Click;
 
-
-
-            lblMessage = new Label()
-            {
-                Left = 10,
-                Top = 370,
-                Width = 460,
-                ForeColor = System.Drawing.Color.Blue
-            };
-
+            // Зорчигчийн мэдээлэл харуулах хэсэг
             lblPassengerId = new Label()
             {
-                Left = 10,
-                Top = 50,
-                Width = 460,
-                ForeColor = System.Drawing.Color.Black
+                Left = 20,
+                Top = 95,
+                Width = 440,
+                Height = 20,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(40, 40, 40)
             };
 
             lblFullName = new Label()
             {
-                Left = 10,
-                Top = 70,
-                Width = 460,
-                ForeColor = System.Drawing.Color.Black
+                Left = 20,
+                Top = 115,
+                Width = 440,
+                Height = 20,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(40, 40, 40)
             };
 
             lblPassportNumber = new Label()
             {
-                Left = 10,
-                Top = 90,
-                Width = 460,
-                ForeColor = System.Drawing.Color.Black
+                Left = 20,
+                Top = 135,
+                Width = 440,
+                Height = 20,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(40, 40, 40)
             };
 
-            lblCheckInButton = new Button()
+            searchGroup.Controls.AddRange(new Control[] { lblPassport, txtPassport, btnSearch, lblPassengerId, lblFullName, lblPassportNumber });
+            this.Controls.Add(searchGroup);
+
+            // Захиалгын мэдээлэл хэсэг
+            GroupBox bookingGroup = new GroupBox()
             {
-                Text = "CheckIn",
-                Left = 340,
-                Top = 190,
-                Width = 80,
-                Height = 40
+                Text = "Захиалгын мэдээлэл",
+                Left = 20,
+                Top = 290,
+                Width = 480,
+                Height = 120,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(70, 130, 180)
             };
-            lblCheckInButton.Click += LblCheckIn_Click;
 
+            lblBookingsDetails = new Label()
+            {
+                Left = 15,
+                Top = 25,
+                Width = 450,
+                Height = 85,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(40, 40, 40),
+                AutoSize = false,
+                BorderStyle = BorderStyle.FixedSingle,
+                BackColor = Color.White,
+                Padding = new Padding(5)
+            };
+
+            bookingGroup.Controls.Add(lblBookingsDetails);
+            this.Controls.Add(bookingGroup);
+
+            // Нислэгийн удирдлага хэсэг
+            GroupBox flightManagementGroup = new GroupBox()
+            {
+                Text = "Нислэгийн төлөв өөрчлөх",
+                Left = 20,
+                Top = 420,
+                Width = 480,
+                Height = 100,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(70, 130, 180)
+            };
+
+            cmbFlights = new ComboBox()
+            {
+                Left = 15,
+                Top = 25,
+                Width = 200,
+                Height = 25,
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Font = new Font("Segoe UI", 9F)
+            };
 
             ComboBox cmbFlightStatus = new ComboBox()
             {
-                Left = 10,
-                Top = 240,
+                Left = 15,
+                Top = 55,
                 Width = 200,
-                DropDownStyle = ComboBoxStyle.DropDownList
+                Height = 25,
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Font = new Font("Segoe UI", 9F)
             };
-            cmbFlightStatus.Items.AddRange(Enum.GetNames(typeof(FlightStatus)));
+            cmbFlightStatus.Items.AddRange(new string[] { "Registering", "Boarding", "Departed", "Delayed", "Cancelled" });
             cmbFlightStatus.SelectedIndex = 0;
-            this.Controls.Add(cmbFlightStatus);
-
-            socketMessageList = new ListBox()
-            {
-                Left = 10,
-                Top = 290,
-                Width = 400,
-                HorizontalScrollbar = true
-            };
 
             Button btnUpdateStatus = new Button()
             {
-                Text = "Update Flight Status",
-                Left = 220,
-                Top = 240,
-                Width = 180,
-                Height = 30
+                Text = "Төлөв шинэчлэх",
+                Left = 230,
+                Top = 40,
+                Width = 120,
+                Height = 35,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                BackColor = Color.FromArgb(34, 139, 34),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand
             };
-            this.Controls.Add(btnUpdateStatus);
-            // төлөв өөрчлөх eventhandler
+            btnUpdateStatus.FlatAppearance.BorderSize = 0;
+
+            // Төлөв өөрчлөх event handler (танай бичсэн код)
             btnUpdateStatus.Click += async (sender, e) =>
             {
-
-                // Сонгогдсон онгоцны FlightNumber авах
                 var selectedFlight = (Flight)cmbFlights.SelectedItem;
-                string flightNumber = selectedFlight.FlightNumber;
+                if (selectedFlight == null) return;
 
-                // FlightStatus enum-аас сонгогдсон статусыг авах
+                string flightNumber = selectedFlight.FlightNumber;
                 string selectedStatusName = cmbFlightStatus.SelectedItem?.ToString() ?? "";
+
                 if (!Enum.TryParse<FlightStatus>(selectedStatusName, out var selectedStatus))
                 {
-                    MessageBox.Show("Invalid flight status selected.");
+                    MessageBox.Show("Буруу төлөв сонгосон байна.", "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 try
                 {
                     string url = $"http://localhost:5208/api/flights/update-status/{flightNumber}";
-
-                    // PUT хүсэлтээр enum-ын int утгыг JSON-р илгээх
                     HttpResponseMessage response = await _httpClient.PutAsJsonAsync(url, (int)selectedStatus);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        MessageBox.Show($"Flight '{flightNumber}' status амжилттай шинэчлэгдлээ.");
-                        // Шинэчлэгдсэн мэдээллийг дахин ачаалж харуулах
+                        MessageBox.Show($"'{flightNumber}' нислэгийн төлөв амжилттай шинэчлэгдлээ.", "Амжилттай", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         await LoadFlightsAsync();
                     }
                     else
                     {
                         string errorContent = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show($"Алдаа гарлаа: {errorContent}");
+                        MessageBox.Show($"Алдаа гарлаа: {errorContent}", "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Алдаа гарлаа: " + ex.Message);
+                    MessageBox.Show("Алдаа гарлаа: " + ex.Message, "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             };
 
-            cmbFlights = new ComboBox()
-            {
-                Left = 10,
-                Top = 150,
-                Width = 400,
-                DropDownStyle = ComboBoxStyle.DropDownList
-            };
-            this.Controls.Add(cmbFlights);
-
-            // Онгоцны төлвийг status combobox дээрээ хадгалдаг байх
+            // Нислэг сонголт өөрчлөгдөх үед төлвийг шинэчлэх
             cmbFlights.SelectedIndexChanged += (s, e) =>
             {
                 if (cmbFlights.SelectedItem is Flight selectedFlight)
@@ -186,20 +253,70 @@ namespace Airport.KioskClient
                 }
             };
 
-           
+            flightManagementGroup.Controls.AddRange(new Control[] { cmbFlights, cmbFlightStatus, btnUpdateStatus });
+            this.Controls.Add(flightManagementGroup);
 
-            this.Controls.Add(lblPassport);
-            this.Controls.Add(txtPassport);
-            this.Controls.Add(btnSearch);
-            this.Controls.Add(lblMessage);
-            this.Controls.Add(lblPassengerId);
-            this.Controls.Add(lblFullName);
-            this.Controls.Add(lblPassportNumber);
-            this.Controls.Add(lblBookingsDetails);
+            // Check-in товч
+            lblCheckInButton = new Button()
+            {
+                Text = "✈️ СУУДАЛ СОНГОЖ БҮРТГҮҮЛЭХ",
+                Left = 20,
+                Top = 540,
+                Width = 200,
+                Height = 50,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                BackColor = Color.FromArgb(255, 140, 0),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand
+            };
+            lblCheckInButton.FlatAppearance.BorderSize = 0;
+            lblCheckInButton.Click += LblCheckIn_Click;
 
-            this.Controls.Add(socketMessageList);
+            // WebSocket мэдээлэл хэсэг
+            GroupBox socketGroup = new GroupBox()
+            {
+                Text = "Системийн мэдээлэл",
+                Left = 20,
+                Top = 600,
+                Width = 480,
+                Height = 80,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(70, 130, 180)
+            };
 
+            socketMessageList = new ListBox()
+            {
+                Left = 15,
+                Top = 25,
+                Width = 450,
+                Height = 45,
+                Font = new Font("Segoe UI", 8F),
+                HorizontalScrollbar = true,
+                BackColor = Color.FromArgb(248, 248, 248)
+            };
 
+            socketGroup.Controls.Add(socketMessageList);
+            this.Controls.Add(socketGroup);
+
+            // Статус мэдээлэл
+            lblMessage = new Label()
+            {
+                Left = 250,
+                Top = 570,
+                Width = 250,
+                Height = 20,
+                Font = new Font("Segoe UI", 9F, FontStyle.Italic),
+                ForeColor = Color.FromArgb(70, 130, 180),
+                Text = "Систем бэлэн байна..."
+            };
+
+            // Бүх контролыг нэмэх
+            this.Controls.AddRange(new Control[] { lblCheckInButton, lblMessage });
+
+            // Суудлыг харуулах талбар (SetupSeatUIAsync функц энд суудлуудыг харуулна)
+            // Энэ хэсэг SetupSeatUIAsync() функцэд тул энд зөвхөн байрлалыг тодорхойлж өгнө
+            // Left: 520, Top: 100, Width: 440, Height: 580 хэмжээтэй талбар
         }
     }
 }
