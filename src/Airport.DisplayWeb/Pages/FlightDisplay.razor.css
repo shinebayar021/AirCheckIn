@@ -151,8 +151,8 @@
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Status colors */
-.status-checkingin {
+/* Status colors - Fixed class names to match C# mapping */
+.status-registering {
     background: linear-gradient(135deg, #2ecc71, #27ae60);
     animation: pulse 3s infinite;
 }
@@ -179,8 +179,8 @@
     background: linear-gradient(135deg, #95a5a6, #7f8c8d);
 }
 
-/* Row status colors */
-.flight-row.status-checkingin {
+/* Row status colors - Fixed class names */
+.flight-row.status-registering {
     border-left-color: #2ecc71;
 }
 

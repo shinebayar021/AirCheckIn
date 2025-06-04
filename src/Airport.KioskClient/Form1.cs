@@ -414,7 +414,7 @@ namespace Airport.KioskClient
             int flightId = 0;
             try
             {
-                string connectionString = @"Data Source=C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Server\airport.db";
+                string connectionString = @"Data Source=..\Airport.Server\airport.db";
                 using (var connection = new Microsoft.Data.Sqlite.SqliteConnection(connectionString))
                 {
                     connection.Open();

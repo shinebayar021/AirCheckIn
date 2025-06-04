@@ -2,6 +2,7 @@
 @page "/flight-display"
 
 @using System.Net.Http.Json
+@using System.Text.Json
 @using Airport.DisplayWeb.Data
 @using Microsoft.AspNetCore.SignalR.Client;
 @implements IAsyncDisposable
@@ -18,7 +19,7 @@
 
     private string GetStatusDisplay(string status) => status switch
     {
-        "Registering" => "Registering",
+        "Registering" => "Check-in",
         "Boarding" => "Boarding",
         "Departed" => "Departed",
         "Delayed" => "Delayed",
@@ -28,9 +29,9 @@
 
     private string GetStatusClass(string status) => status switch
     {
-        "Registering" => "status-registering",
+        "Registering" => "status-registering", // Fixed: was status-checkingin in CSS
         "Boarding" => "status-boarding",
-        "Departed" => "status-on-time",
+        "Departed" => "status-departed", // Fixed: was status-on-time
         "Delayed" => "status-delayed",
         "Cancelled" => "status-cancelled",
         _ => "status-unknown"
@@ -57,18 +58,36 @@
             .WithAutomaticReconnect()
             .Build();
 
-        hubConnection.On<FlightInfo>("ReceiveFlightUpdate", (updatedFlight) =>
+        // Fixed: Handle the anonymous object format sent by server
+        hubConnection.On("ReceiveFlightUpdate", (object updatedFlightData) =>
         {
-            var index = flights.FindIndex(f => f.FlightNumber == updatedFlight.FlightNumber);
-            if (index != -1)
+            try
             {
-                flights[index] = updatedFlight;
+                // Convert the anonymous object to our FlightInfo type
+                var json = System.Text.Json.JsonSerializer.Serialize(updatedFlightData);
+                var updatedFlight = System.Text.Json.JsonSerializer.Deserialize<FlightInfo>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                if (updatedFlight != null)
+                {
+                    var index = flights.FindIndex(f => f.FlightNumber == updatedFlight.FlightNumber);
+                    if (index != -1)
+                    {
+                        flights[index] = updatedFlight;
+                    }
+                    else
+                    {
+                        flights.Add(updatedFlight);
+                    }
+                    InvokeAsync(StateHasChanged);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                flights.Add(updatedFlight);
+                Console.Error.WriteLine($"SignalR update error: {ex.Message}");
             }
-            InvokeAsync(StateHasChanged);
         });
 
         await hubConnection.StartAsync();
@@ -127,15 +146,9 @@
 
         @if (flights == null || flights.Count == 0)
         {
-            <div class="flight-row status-unknown">
-                <div class="flight-cell flight-number">—</div>
-                <div class="flight-cell route">@DefaultText</div>
-                <div class="flight-cell time">@DefaultText</div>
-                <div class="flight-cell time">@DefaultText</div>
-                <div class="flight-cell aircraft">@DefaultText</div>
-                <div class="flight-cell status">
-                    <span class="status-badge status-unknown">No Data</span>
-                </div>
+            <div class="loading-message">
+                <div class="loading-spinner"></div>
+                <p>Loading flight information...</p>
             </div>
         }
         else
@@ -147,7 +160,7 @@
                         @flight.FlightNumber
                     </div>
                     <div class="flight-cell route">
-                        <span class="origin">@DefaultText</span>
+                        <span class="origin">ULN</span>
                         <span class="arrow">→</span>
                         <span class="destination">@DefaultText</span>
                     </div>
