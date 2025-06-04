@@ -153,6 +153,7 @@ namespace Airport.KioskClient
                 this.Controls.Add(lblCheckInButton);
             }
         }
+        private int MflightId;
         private int MpassengerId;
         // search button дарагдах үед
         private async void BtnSearch_Click(object? sender, EventArgs e)

@@ -1,5 +1,4 @@
-﻿// Data/FlightInfo.cs
-using System;
+﻿using System;
 using System.Text.Json.Serialization;
 
 namespace Airport.DisplayWeb.Data
