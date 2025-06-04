@@ -3,6 +3,9 @@ using Airport.Hubs;
 using Airport.Server.Services;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Airport.Business.Services;
+using Airport.Business.FlightServices.Interfaces;
+using Airport.Business.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +26,11 @@ builder.Services.AddResponseCompression(opts =>
     opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
         new[] { "application/octet-stream" });
 });
+
+builder.Services.AddScoped<ISeatService, SeatService>();
+builder.Services.AddScoped<IFlightService, FlightService>();
+builder.Services.AddScoped<IPassengerService, PassengerService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 var app = builder.Build();
 
