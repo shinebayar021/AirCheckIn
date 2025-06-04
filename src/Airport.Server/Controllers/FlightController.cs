@@ -148,7 +148,7 @@ namespace Airport.Server.Controllers
         }
 
 
-        // Checked in ?????? ????? ?????? GET
+        // Checked in? GET
         [HttpGet("checked-in/{passengerId}")]
         public async Task<IActionResult> HasPassengerCheckedIn(int passengerId)
         {

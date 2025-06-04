@@ -15,9 +15,9 @@ public class SeatLockManager
     //        if (_locks.TryGetValue(seatKey, out var expiry))
     //        {
     //            if (expiry > DateTime.UtcNow)
-    //                return false; // lock идэвхтэй
+    //                return false;
     //            else
-    //                _locks.Remove(seatKey); // хугацаа дууссан, устгах
+    //                _locks.Remove(seatKey); 
     //        }
     //        _locks[seatKey] = DateTime.UtcNow.AddSeconds(30);
     //        return true;

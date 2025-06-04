@@ -443,7 +443,7 @@ namespace Airport.KioskClient
             {
                 using var client = new HttpClient();
 
-                //  Зорчигч өмнө нь check-in хийсэн эсэхийг API-аар шалгах
+                //  Zorchigchiin check-in hiigdsen esehiig shalgadag baih
                 var checkUrl = $"http://localhost:5208/api/seats/checked-in/{MpassengerId}";
                 var checkResponse = await client.GetAsync(checkUrl);
 
