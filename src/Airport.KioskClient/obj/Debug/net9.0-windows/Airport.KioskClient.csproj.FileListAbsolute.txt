@@ -58,9 +58,7 @@ C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\runtimes\win\lib\net8.0\System.Data.SqlClient.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\Airport.Data.dll
-C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\Airport.Domain.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\Airport.Data.pdb
-C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\bin\Debug\net9.0-windows\Airport.Domain.pdb
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\obj\Debug\net9.0-windows\Airport.KioskClient.csproj.AssemblyReference.cache
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\obj\Debug\net9.0-windows\Airport.KioskClient.Form1.resources
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.KioskClient\obj\Debug\net9.0-windows\Airport.KioskClient.csproj.GenerateResource.cache

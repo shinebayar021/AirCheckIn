@@ -133,10 +133,8 @@ C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\bin\Debug\net9.0\r
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\bin\Debug\net9.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\bin\Debug\net9.0\Airport.Business.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\bin\Debug\net9.0\Airport.Data.dll
-C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\bin\Debug\net9.0\Airport.Domain.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\bin\Debug\net9.0\Airport.Business.pdb
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\bin\Debug\net9.0\Airport.Data.pdb
-C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\bin\Debug\net9.0\Airport.Domain.pdb
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\obj\Debug\net9.0\Airport.Server.csproj.AssemblyReference.cache
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\obj\Debug\net9.0\Airport.Server.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\obj\Debug\net9.0\Airport.Server.AssemblyInfoInputs.cache
@@ -155,7 +153,6 @@ C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\obj\Debug\net9.0\s
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.Airport.Server.props
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.Airport.Server.props
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\obj\Debug\net9.0\staticwebassets.pack.json
-C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\obj\Debug\net9.0\Airport..35C71F8A.Up2Date
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\obj\Debug\net9.0\Airport.Server.dll
 C:\Users\sssin\source\repos\AirportCheckIn\src\Airport.Server\obj\Debug\net9.0\refint\Airport.Server.dll

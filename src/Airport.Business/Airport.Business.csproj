@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Airport.Domain\Airport.Domain.csproj" />
     <ProjectReference Include="..\Airport.Data\Airport.Data.csproj" />
   </ItemGroup>
 

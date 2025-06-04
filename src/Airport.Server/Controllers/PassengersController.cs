@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Airport.Data.Models;
-using Airport.Business.DTOs;
-using Airport.Data;
+using Airport.Business.FlightServices.Interfaces;
 
 namespace Airport.Server.Controllers
 {
@@ -11,51 +8,30 @@ namespace Airport.Server.Controllers
     [Route("api/[controller]")]
     public class PassengersController : ControllerBase
     {
-        private readonly AirportDbContext _context;
+        private readonly IPassengerService _passengerService;
 
-        public PassengersController(AirportDbContext context)
+        public PassengersController(IPassengerService passengerService)
         {
-            _context = context;
+            _passengerService = passengerService;
         }
         //бүх зорчигчид GET
         [HttpGet]
         public async Task<IActionResult> GetPassengers()
         {
-            var passengers = await _context.Passengers.ToListAsync();
+            var passengers = await _passengerService.GetAllPassengersAsync();
             return Ok(passengers);
         }
+
         //зорчигч хайх GET
         [HttpGet("search")]
         public async Task<IActionResult> SearchByPassport(string passport)
         {
             if (string.IsNullOrEmpty(passport))
                 return BadRequest("Passport dugaaraa oruul.");
-            // passenger-aa bookingtai tsugt ni gargah
-            var passengerWithBookings = await _context.Passengers
-                .Where(p => p.PassportNumber == passport)
-                .Include(p => p.Bookings)
-                    .ThenInclude(b => b.Flight)
-                .Include(p => p.Bookings)
-                    .ThenInclude(b => b.Seat)
-                .FirstOrDefaultAsync();
 
-            if (passengerWithBookings == null)
+            var result = await _passengerService.SearchPassengerByPassportAsync(passport);
+            if (result == null)
                 return NotFound($"Oldsongui {passport}");
-            //result-aa haruuldag bolgoh
-            var result = new
-            {
-                PassengerId = passengerWithBookings.PassengerId,
-                FullName = passengerWithBookings.FullName,
-                PassportNumber = passengerWithBookings.PassportNumber,
-                Bookings = passengerWithBookings.Bookings.Select(b => new
-                {
-                    BookingId = b.Id,
-                    FlightNumber = b.Flight.FlightNumber,
-                    DepartureTime = b.Flight.DepartureTime,
-                    SeatNumber = b.Seat != null ? b.Seat.SeatNumber : null,
-                    CheckedIn = b.CheckedIn
-                }).ToList()
-            };
 
             return Ok(result);
         }

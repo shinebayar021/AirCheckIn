@@ -469,7 +469,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
-          "Airport.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "9.0.5",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.5"
         },
@@ -478,16 +477,6 @@
         },
         "runtime": {
           "bin/placeholder/Airport.Data.dll": {}
-        }
-      },
-      "Airport.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "compile": {
-          "bin/placeholder/Airport.Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Airport.Domain.dll": {}
         }
       }
     }
@@ -1135,17 +1124,11 @@
       "type": "project",
       "path": "../Airport.Data/Airport.Data.csproj",
       "msbuildProject": "../Airport.Data/Airport.Data.csproj"
-    },
-    "Airport.Domain/1.0.0": {
-      "type": "project",
-      "path": "../Airport.Domain/Airport.Domain.csproj",
-      "msbuildProject": "../Airport.Domain/Airport.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "Airport.Data >= 1.0.0",
-      "Airport.Domain >= 1.0.0"
+      "Airport.Data >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1182,9 +1165,6 @@
           "projectReferences": {
             "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Data\\Airport.Data.csproj": {
               "projectPath": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Data\\Airport.Data.csproj"
-            },
-            "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Domain\\Airport.Domain.csproj": {
-              "projectPath": "C:\\Users\\sssin\\source\\repos\\AirportCheckIn\\src\\Airport.Domain\\Airport.Domain.csproj"
             }
           }
         }

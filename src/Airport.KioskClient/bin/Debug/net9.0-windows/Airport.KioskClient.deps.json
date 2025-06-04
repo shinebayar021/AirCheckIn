@@ -511,20 +511,11 @@
       "System.Threading.Channels/9.0.5": {},
       "Airport.Data/1.0.0": {
         "dependencies": {
-          "Airport.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "9.0.5",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.5"
         },
         "runtime": {
           "Airport.Data.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Airport.Domain/1.0.0": {
-        "runtime": {
-          "Airport.Domain.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -805,11 +796,6 @@
       "hashPath": "system.threading.channels.9.0.5.nupkg.sha512"
     },
     "Airport.Data/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Airport.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
