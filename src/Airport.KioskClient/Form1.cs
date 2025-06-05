@@ -75,7 +75,6 @@ namespace Airport.KioskClient
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-            // WebSocket-ийг хаахын тулд цуцалга хийх
             _wsCts.Cancel();
         }
 
@@ -86,14 +85,14 @@ namespace Airport.KioskClient
 
             try
             {
-                // 1. Серверийн WebSocket URL (жишээ нь)
+                // WebSocket URL
                 var serverUri = new Uri("ws://localhost:5001/ws/");
 
-                // 2. Холбогдох
+                // holbolt
                 await _wsClient.ConnectAsync(serverUri, _wsCts.Token);
                 Console.WriteLine("WebSocket connection success.");
 
-                // 3. Клиент талд хүлээн авах цикл (таск дээр ажиллана)
+                // client tald huleen avah cycle
                 _ = Task.Run(async () =>
                 {
                     var buffer = new byte[4 * 1024];
@@ -101,7 +100,7 @@ namespace Airport.KioskClient
                     {
                         while (_wsClient.State == WebSocketState.Open && !_wsCts.IsCancellationRequested)
                         {
-                            // 3.1. Серверээс мессеж хүлээн авах
+                            // message huleen avah
                             var result = await _wsClient.ReceiveAsync(
                                 new ArraySegment<byte>(buffer), 
                                 _wsCts.Token);
@@ -110,7 +109,7 @@ namespace Airport.KioskClient
                             {
                                 var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
 
-                                // 3.2. UI thread дээр MessageBox эсвэл бусад UI update хийх
+                                // UI update
                                 Invoke(new Action(async () =>
                                 {
                                     socketMessageList.Items.Add(message);
@@ -119,7 +118,7 @@ namespace Airport.KioskClient
                             }
                             else if (result.MessageType == WebSocketMessageType.Close)
                             {
-                                // Сервер хаасан бол холболтоо хаах
+                                // Server haagdsan bol holboltoo haana
                                 await _wsClient.CloseAsync(
                                     WebSocketCloseStatus.NormalClosure, 
                                     "Close response received", 
@@ -129,11 +128,9 @@ namespace Airport.KioskClient
                     }
                     catch (OperationCanceledException)
                     {
-                        // Цуцлагдсан үед энд орно
                     }
                     catch (WebSocketException wsex)
                     {
-                        // Алдаа гарсан үед Console эсвэл лог дээр үзүүлнэ
                         Console.WriteLine("WebSocket error: " + wsex.Message);
                     }
                 }, _wsCts.Token);
@@ -152,6 +149,14 @@ namespace Airport.KioskClient
             if (checkedIn)
             {
                 this.Controls.Remove(lblCheckInButton);
+                var existingPanel = this.Controls.OfType<Panel>()
+                               .FirstOrDefault(p => p.Name == "seatContainer");
+                if (existingPanel != null)
+                {
+                    this.Controls.Remove(existingPanel);
+                    existingPanel.Dispose();
+                }
+
             }
             else
             {
@@ -302,9 +307,6 @@ namespace Airport.KioskClient
                 lbl.BackColor = Color.Gray;
                 selectedSeatLabel = lbl;
 
-
-                // Эсвэл өөр TextBox-д харуулах:
-                // txtSelectedSeat.Text = seatNumber;
             }
         }
 
@@ -314,10 +316,10 @@ namespace Airport.KioskClient
         {
             var seats = await LoadSeatsAsync();
 
-            // 2.2. Өмнөх сонгогдсон суудлыг цэвэрлэх
+            // Өмнөх сонгогдсон суудлыг цэвэрлэх
             selectedSeatLabel = null;
 
-            // 2.1. Хэрвээ өмнөх seatContainer байгаа бол устгах
+            // Хэрвээ өмнөх seatContainer байгаа бол устгах
             var existingPanel = this.Controls.OfType<Panel>()
                                .FirstOrDefault(p => p.Name == "seatContainer");
             if (existingPanel != null)
@@ -326,7 +328,7 @@ namespace Airport.KioskClient
                 existingPanel.Dispose();
             }
 
-            // 2.3. Шинэ Panel үүсгэх
+            //  Шинэ Panel үүсгэх
             var seatContainer = new Panel
             {
                 Name = "seatContainer",
@@ -338,7 +340,7 @@ namespace Airport.KioskClient
                 BorderStyle = BorderStyle.FixedSingle
             };
 
-            // 2.4. TableLayoutPanel үүсгэх
+            // TableLayoutPanel үүсгэх
             var table = new TableLayoutPanel
             {
                 RowCount = 30,
@@ -351,7 +353,7 @@ namespace Airport.KioskClient
             for (int r = 0; r < 30; r++)
                 table.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
 
-            // 2.5. Суудлуудыг байрлуулах
+            // Суудлуудыг байрлуулах
             for (int row = 1; row <= 30; row++)
             {
                 for (int col = 0; col < 6; col++)
@@ -372,7 +374,7 @@ namespace Airport.KioskClient
                         Cursor = Cursors.Hand
                     };
 
-                    // 2.6. Click эвент холбох
+                    // Click эвент холбох
                     lblSeat.Click += SeatLabel_Click;
 
                     table.Controls.Add(lblSeat, col, row - 1);
@@ -394,27 +396,13 @@ namespace Airport.KioskClient
                 return;
             }
 
-            //  Зорчигчийн ID-г Label-аас зөвшөөрөгдөхөөр авч чаддаг болгох (Жишээ: "2" гэсэн тоог шууд харуулсан гэж тооцно)
-            //if (!int.TryParse(MpassengerId, out int passengerId))
-            //{
-            //    MessageBox.Show("Зорчигчийн ID буруу байна.", "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
-
-            //  Нислэгийн ID-г ComboBox.SelectedValue-аас авч чаддаг болгох
-            //if (!int.TryParse(cmbFlights.SelectedValue?.ToString(), out int flightId)) // TODO nislegiig databasees avah
-            //{
-            //    MessageBox.Show("Nisleg songogdoogui.", "FF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    return;
-            //}
-
             
 
-
+            //search result-aas garsan zorchigchiin songoson ongotsnii suudaliin medeelliig gargahiin tuld database-aas haiv
             int flightId = 0;
             try
             {
-                string connectionString = @"Data Source=C:\Users\sanja\source\repos\AirCheckIn\src\Airport.Server\airport.db";
+                string connectionString = @"Data Source=..\Airport.Server\airport.db";
                 using (var connection = new Microsoft.Data.Sqlite.SqliteConnection(connectionString))
                 {
                     connection.Open();
@@ -424,7 +412,7 @@ namespace Airport.KioskClient
                         var result = command.ExecuteScalar();
                         if (result != null && int.TryParse(result.ToString(), out flightId))
                         {
-                            // Flight ID found
+                            
                         }
                         else
                         {
@@ -450,6 +438,7 @@ namespace Airport.KioskClient
 
                 if (checkResponse.IsSuccessStatusCode)
                 {
+
                     var json = await checkResponse.Content.ReadAsStringAsync();
                     bool alreadyCheckedIn = JsonSerializer.Deserialize<bool>(json);
 
@@ -467,7 +456,7 @@ namespace Airport.KioskClient
                 else
                 {
                     MessageBox.Show(
-                        $"Check-in shalgaltiin aldaa. Статус код: {checkResponse.StatusCode}",
+                        $"Check-in shalgaltiin aldaa. Status code: {checkResponse.StatusCode}",
                         "Aldaa",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
@@ -547,7 +536,7 @@ namespace Airport.KioskClient
                 int ticketY = (pageHeight - ticketHeight) / 2;
 
                 // Өнгө...
-                Brush primaryBrush = new SolidBrush(Color.FromArgb(41, 128, 185)); 
+                Brush primaryBrush = new SolidBrush(Color.FromArgb(41, 128, 185));
                 Brush whiteBrush = Brushes.White;
                 Brush blackBrush = Brushes.Black;
                 Brush grayBrush = new SolidBrush(Color.FromArgb(149, 165, 166));
@@ -583,7 +572,7 @@ namespace Airport.KioskClient
                 DateTime printTime = DateTime.Now;   // Boarding pass хэвлэсэн цаг
 
                 // Booking-ийн мэдээлэл
-                string bookingRef = $"BK{passengerId:D4}"; 
+                string bookingRef = $"BK{passengerId:D4}";
 
                 // background
                 g.FillRectangle(whiteBrush, ticketX, ticketY, ticketWidth, ticketHeight);

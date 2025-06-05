@@ -311,12 +311,8 @@ namespace Airport.KioskClient
                 Text = "Систем бэлэн байна..."
             };
 
-            // Бүх контролыг нэмэх
-            this.Controls.AddRange(new Control[] { lblCheckInButton, lblMessage });
-
-            // Суудлыг харуулах талбар (SetupSeatUIAsync функц энд суудлуудыг харуулна)
-            // Энэ хэсэг SetupSeatUIAsync() функцэд тул энд зөвхөн байрлалыг тодорхойлж өгнө
-            // Left: 520, Top: 100, Width: 440, Height: 580 хэмжээтэй талбар
+            //this.Controls.AddRange(new Control[] { lblCheckInButton, lblMessage });
+            this.Controls.Add(lblMessage);
         }
     }
 }
