@@ -1,4 +1,5 @@
-﻿using System;
+﻿// File: src/Airport.Server/Services/WebSocketServerService.cs
+using System;
 using System.Collections.Concurrent;
 using System.Net;
 using System.Net.WebSockets;
@@ -12,7 +13,8 @@ namespace Airport.Server.Services
     public class WebSocketServerService : BackgroundService
     {
         private readonly HttpListener _httpListener;
-        private const string Prefix = "http://localhost:5001/ws/";
+        // Use + instead of 0.0.0.0 for HttpListener
+        private const string Prefix = "http://+:5001/ws/";
 
         // олон холболт байж болно, тиймээс ConcurrentDictionary(map) ашиглана.
         private static readonly ConcurrentDictionary<string, WebSocket> _sockets
@@ -26,9 +28,18 @@ namespace Airport.Server.Services
 
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
-            _httpListener.Start();
-            Console.WriteLine($"[WebSocketServerService] Listening on {Prefix}");
-            await base.StartAsync(cancellationToken);
+            try
+            {
+                _httpListener.Start();
+                Console.WriteLine($"[WebSocketServerService] Listening on {Prefix}");
+                await base.StartAsync(cancellationToken);
+            }
+            catch (HttpListenerException ex)
+            {
+                Console.WriteLine($"[WebSocketServerService] Failed to start: {ex.Message}");
+                Console.WriteLine("Try running as administrator or use a different port.");
+                throw;
+            }
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -156,7 +167,7 @@ namespace Airport.Server.Services
             foreach (var kvp in _sockets)
             {
                 var socket = kvp.Value;
-                 
+
                 if (socket != null && socket.State == WebSocketState.Open)
                 {
                     tasks.Add(socket.SendAsync(new ArraySegment<byte>(data),

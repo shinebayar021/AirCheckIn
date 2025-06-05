@@ -9,6 +9,17 @@ using Airport.Business.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS policy for Kiosk client
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowKioskClient", policy =>
+    {
+        policy.WithOrigins("*")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // SQLite DB context
 builder.Services.AddDbContext<AirportDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -33,6 +44,8 @@ builder.Services.AddScoped<IPassengerService, PassengerService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 
 var app = builder.Build();
+
+app.UseCors("AllowKioskClient");
 
 // DB uusgeh, seed hiih process
 using (var scope = app.Services.CreateScope())

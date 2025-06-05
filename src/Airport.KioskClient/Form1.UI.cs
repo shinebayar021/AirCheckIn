@@ -312,7 +312,8 @@ namespace Airport.KioskClient
             };
 
             // Бүх контролыг нэмэх
-            this.Controls.AddRange(new Control[] { lblCheckInButton, lblMessage });
+            //this.Controls.AddRange(new Control[] { lblCheckInButton, lblMessage });
+            this.Controls.Add(lblMessage);
 
             // Суудлыг харуулах талбар (SetupSeatUIAsync функц энд суудлуудыг харуулна)
             // Энэ хэсэг SetupSeatUIAsync() функцэд тул энд зөвхөн байрлалыг тодорхойлж өгнө
